@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("../partials/head"); %>
+
+    <body>
+
+        <main>
+            <form action="/cadastro" method="POST" class="formItens"> 
+            <div class="container">
+                <div class="login">
+                    <h1>CADASTRO</h1>
+                   <tr>
+                    <td><input type="text" name="nome_completo" placeholder="Nome Completo" required></td>
+                   </tr>
+                   <tr> 
+                    <td><input type="email" name="email" placeholder="Email" required></td>
+                   </tr>
+                   <tr>
+                    <td><input type="password" name="senha" placeholder="Senha"></td>
+                   </tr>
+                   <tr>
+                    <td><input type="password" name="confirmar_senha" placeholder="Confirme a senha"></td>
+                   </tr>
+                    <button type="submit">Cadastrar</button>
+                </div>
+            </div>
+        </form> 
+        </main>
+    </body>
+</html>

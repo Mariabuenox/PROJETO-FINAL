@@ -1,0 +1,42 @@
+<%- console.log(JSON.stringify(dados)); %>
+    <table width="15%">
+        <thead>
+            <tr>
+                <th>Código da Sala</th>
+                <th>Orientador</th>
+                <th>Data</th>
+                <th>Total de Itens</th>
+                <th>Pontuação Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% let i; for(i=0; i<dados.length; i++) { %>
+                <tr>
+                    <td>
+                        <%= dados[i].codigo_sala %>
+                    </td>
+                    <td>
+                        <%= dados[i].docente %>
+                    </td>
+                    <td>
+                        <%= dados[i].data_recente %>
+                    </td>
+                    <td>
+                        <%= dados[i].total_itens %>
+                    </td>
+                    <td>
+                        <%= dados[i].pontuacao_total %>
+                    </td>
+                </tr>
+                <% } %>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="3">
+                    <%- `Quantidade de Doacoes ${dados.length}` %>
+                </th>
+            </tr>
+        </tfoot>
+        </body>
+
+    </table>
