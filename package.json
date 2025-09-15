@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "express": "^5.1.0",
     "package.json": "^2.0.1"
   }
 }
