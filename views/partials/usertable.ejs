@@ -1,50 +1,42 @@
-<section id="cards-contagem">
-    <div class="card-contagem">
-        <img src="./img/roupaComum.png">
-        <h5>Roupas comuns <b>usadas</b>(Blusas, shorts, etc)</h5>
-        <div class="quantity-selector">
-            <button onclick="alterarQuantidade(-1)">-</button>
-            <div class="quantidade" id="quantidade">0</div>
-            <button onclick="alterarQuantidade(1)">+</button>
-        </div>
-    </div>
-    <div class="card-contagem">
-        <img src="./img/roupaFrio.png">
-        <h5>Roupas de frio <b>usadas</b>(Agasalhos, calças, etc)</h5>
-        <div class="quantity-selector">
-            <button onclick="alterarQuantidade(-1)">-</button>
-            <div class="quantidade" id="quantidade">0</div>
-            <button onclick="alterarQuantidade(1)">+</button>
-        </div>
-    </div>
-    <div class="card-contagem">
-        <img src="./img/roupaEtiqueta.png">
-        <h5>Roupas novas embaladas com etiquetas</h5>
-        <div class="quantity-selector">
-            <button onclick="alterarQuantidade(-1)">-</button>
-            <div class="quantidade" id="quantidade">0</div>
-            <!-- <span id="roupas" class="quantidade">0</span> -->
-            <button onclick="alterarQuantidade(1)">+</button>
-        </div>
-    </div>
-    <div class="card-contagem">
-        <img src="./img/cobertorVelho.png">
-        <h5>Roupas de cama de inverno <b>usadas</b></h5>
-        <div class="quantity-selector">
-            <button onclick="alterarQuantidade(-1)">-</button>
-            <div class="quantidade" id="quantidade">0</div>
-            <!-- <span id="roupas_frio" class="quantidade">0</span> -->
-            <button onclick="alterarQuantidade(1)">+</button>
-        </div>
-    </div>
-    <div class="card-contagem">
-        <img src="./img/cobertNovo.png">
-        <h5>Roupas de cama de inverno <b>novas</b></h5>
-        <div class="quantity-selector">
-            <button onclick="alterarQuantidade(-1)">-</button>
-            <div class="quantidade" id="quantidade">0</div>
-            <!-- <span id="roupas_novas" class="quantidade">0</span> -->
-            <button onclick="alterarQuantidade(1)">+</button>
-        </div>
-    </div>
-</section>
+<%- console.log(JSON.stringify(dados)); %>
+    <table width="15%">
+        <thead>
+            <tr>
+                <th>Código da Sala</th>
+                <th>Orientador</th>
+                <th>Data</th>
+                <th>Total de Itens</th>
+                <th>Pontuação Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% let i; for(i=0; i<dados.length; i++) { %>
+                <tr>
+                    <td>
+                        <%= dados[i].codigo_sala %>
+                    </td>
+                    <td>
+                        <%= dados[i].docente %>
+                    </td>
+                    <td>
+                        <%= dados[i].data_recente %>
+                    </td>
+                    <td>
+                        <%= dados[i].total_itens %>
+                    </td>
+                    <td>
+                        <%= dados[i].pontuacao_total %>
+                    </td>
+                </tr>
+                <% } %>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th colspan="3">
+                    <%- `Quantidade de Doacoes ${dados.length}` %>
+                </th>
+            </tr>
+        </tfoot>
+        </body>
+
+    </table>
