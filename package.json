@@ -1,6 +1,9 @@
 {
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "express": "^5.1.0",
-    "package.json": "^2.0.1"
+    "express-session": "^1.18.2",
+    "package.json": "^2.0.1",
+    "sqlite3": "^5.1.7"
   }
 }
