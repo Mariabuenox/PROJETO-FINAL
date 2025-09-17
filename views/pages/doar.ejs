@@ -13,13 +13,12 @@
                     <table>
                         <tr>
                             <td>
-                                <select name="item_doado" required>
-                                    <option value="" disabled selected>Selecione o tipo da sua doação</option>
-                                    <option value="1">1 ponto - Roupas comuns usadas</option>
-                                    <option value="2">2 pontos - Roupas de frio usadas</option>
-                                    <option value="5">5 pontos - Roupas de cama de inverno usadas</option>
-                                    <option value="10">10 pontos - Roupas novas embaladas com etiqueta</option>
-                                    <option value="20">20 pontos - Roupas de cama de inverno novas</option>
+                                <select name="doacao" required>
+                                    <option value="" disabled selected>Selecione a campanha que você deseja doar</option>
+                                    <option value="1">Alimentos não perecíveis</option>
+                                    <option value="2">Ração</option>
+                                    <option value="5">Roupas</option>
+                                    <option value="10">Brinquedos</option>
                                 </select>
                             </td>
                         </tr>
@@ -29,6 +28,9 @@
                         <tr>
                             <td><input type="date" name="data" placeholder="Data" required></td>
                         </tr>
+                        <tr>
+                            <td><input type="text" name="aluno" placeholder="Nome do aluno" required></td>
+                            </tr>
                         <tr>
                             <td>
                                 <select name="codigo_sala" required>
@@ -62,9 +64,37 @@
                                     <option >N3F</option>
                                 </select>
                             </td>
-                        </tr>
+                        </tr>    
                         <tr>
-                            <td><input type="text" name="docente" placeholder="Docente" required></td>
+                            <td>
+                                <select name="docente" required>
+                                    <option value="" disabled selected>Selecione o docente referencial</option>
+                                    <option>William</option>
+                                    <option>Fabio</option>
+                                    <option >Epaminondas</option>
+                                    <option >Rogério Poleto</option>
+                                    <option >Waldemar</option>
+                                    <option >Alcindo</option>
+                                    <option >Bruna</option>
+                                    <option >Lucas/Gabriela</option>
+                                    <option >Izaias</option>
+                                    <option >Luciano</option>
+                                    <option >Denis</option>
+                                    <option >Lucas Pereira</option>
+                                    <option >Alex</option>
+                                    <option >Fernando</option>
+                                    <option >Vitor</option>
+                                    <option >Bruno</option>
+                                    <option >Sergio</option>
+                                    <option >Alex Penteado</option>
+                                    <option>Maycon</option>
+                                    <option >Ricardo</option>
+                                    <option >João Flávio</option>
+                                    <option >Ana</option>
+                                    <option >Marilia</option>
+                                    <option >Evandro</option>
+                                </select>
+                            </td>
                         </tr>
                     </table>
                     <button type="submit">Confirmar</button><br><br>

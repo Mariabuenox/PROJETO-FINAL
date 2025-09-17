@@ -13,7 +13,7 @@ const db = new sqlite3.Database("doacao.db");
 db.serialize(() => {
     db.run("CREATE TABLE IF NOT EXISTS cadastro ( id INTEGER PRIMARY KEY AUTOINCREMENT, nome_completo TEXT, email TEXT,senha TEXT,confirmar_senha TEXT )"
     );
-    db.run("CREATE TABLE IF NOT EXISTS doar ( id INTEGER PRIMARY KEY AUTOINCREMENT, item_doado INT, quantidade INT, data DATE,codigo_sala TEXT,docente TEXT,pontuacao_final INT, id_usuario INT)"
+    db.run("CREATE TABLE IF NOT EXISTS doar ( id INTEGER PRIMARY KEY AUTOINCREMENT, doacao TEXT, quantidade INT, data DATE, aluno TEXT, codigo_sala TEXT,docente TEXT,pontuacao_final INT, id_usuario INT)"
     );
 });
 
