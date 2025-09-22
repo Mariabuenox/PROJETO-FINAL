@@ -4,11 +4,11 @@
       <ul>
         <!-- <img src="logo.png"> -->
         <li><a href="/campanhas">Campanhas</a></li>
-        <li><a href="">Como ajudar</a></li>
+        <li><a href="/info">Como ajudar</a></li>
         <li><a href="">Doações</a></li>
-        <li><a href="">Contato</a></li>
-        <% if(req.session.cadastro) {%>
-        <li><a href="/login">Contato</a></li>
+        <li><a href="/sobre">Sobre nós</a></li>
+       <% if (req.session.loggedin) { %>
+        <li><a href="/logout">Sair</a></li>
         <% } %>
       </ul>
     </nav>

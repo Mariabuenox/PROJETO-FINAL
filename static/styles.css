@@ -18,6 +18,11 @@ body {
     flex-direction: column;
 }
 
+body.erro{
+background-image: url('erro404.jpeg');
+backdrop-filter: none;
+}
+
 .box-index {
     font-size: 1.5rem;
     margin: auto;
@@ -244,7 +249,7 @@ nav {
         border-radius: 7px;
         justify-content: center;
 
-        a{
+        a {
             text-decoration: none;
         }
 

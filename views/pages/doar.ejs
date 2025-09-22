@@ -1,79 +1,75 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <%- include("../partials/head") %>
 
-<body class="desfocar">
-    <center>
-        <div class="page-box">
-            <br><br>
-            <h1>Doar</h1>
-            <main>
-                <form action="/doar" method="POST" class="formItens">
-                    <table>
-                        <tr>
-                            <td>
-                                <select name="item_doado" required>
-                                    <option value="" disabled selected>Selecione o tipo da sua doação</option>
-                                    <option value="1">1 ponto - Roupas comuns usadas</option>
-                                    <option value="2">2 pontos - Roupas de frio usadas</option>
-                                    <option value="5">5 pontos - Roupas de cama de inverno usadas</option>
-                                    <option value="10">10 pontos - Roupas novas embaladas com etiqueta</option>
-                                    <option value="20">20 pontos - Roupas de cama de inverno novas</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><input type="number" name="quantidade" placeholder="Quantidade" min="1" max="99" required></td>
-                        </tr>
-                        <tr>
-                            <td><input type="date" name="data" placeholder="Data" required></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <select name="codigo_sala" required>
-                                    <option value="" disabled selected>Selecione a turma</option>
-                                    <option>M1A</option>
-                                    <option>M3A</option>
-                                    <option >M3B</option>
-                                    <option >M1C</option>
-                                    <option >M3D</option>
-                                    <option >M1F</option>
-                                    <option >M1I</option>
-                                    <option >M1IA</option>
-                                    <option >M1H</option>
-                                    <option >T1A</option>
-                                    <option >T1B</option>
-                                    <option >T1C</option>
-                                    <option >T1D</option>
-                                    <option >T1IA</option>
-                                    <option >T1I</option>
-                                    <option >T3FA</option>
-                                    <option >T2FC</option>
-                                    <option >T3F</option>
-                                    <option >T1FB</option>
-                                    <option >I1F</option>
-                                    <option >I1FA</option>
-                                    <option>I1HS</option>
-                                    <option >I1HSB</option>
-                                    <option >I1E</option>
-                                    <option >I2HSA</option>
-                                    <option >N1I</option>
-                                    <option >N3F</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><input type="text" name="docente" placeholder="Docente" required></td>
-                        </tr>
-                    </table>
-                    <button type="submit">Confirmar</button><br><br>
-                </form>
-            </main>
-        </div>
-        <a href="/"><button type="submit">Voltar ao início</button></a><br>
-    </center>
-    <%- include("../partials/footer") %>
+<body>
+  <div class="page-box">
+    <h1>Doar</h1>
+    <main>
+      <form action="/doar" method="POST" class="formItens">
+        <table>
+          <tr>
+            <td>
+              <select name="item_doado" required>
+                <option value="" disabled selected>Selecione o tipo da sua doação</option>
+                <option value="1">1 ponto - Roupas comuns usadas</option>
+                <option value="2">2 pontos - Roupas de frio usadas</option>
+                <option value="5">5 pontos - Roupas de cama de inverno usadas</option>
+                <option value="10">10 pontos - Roupas novas embaladas com etiqueta</option>
+                <option value="20">20 pontos - Roupas de cama de inverno novas</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td><input type="number" name="quantidade" placeholder="Quantidade" min="1" max="99" required></td>
+          </tr>
+          <tr>
+            <td><input type="date" name="data" placeholder="Data" required></td>
+          </tr>
+          <tr>
+            <td>
+              <select name="codigo_sala" required>
+                <option value="" disabled selected>Selecione a turma</option>
+                <option>M1A</option>
+                <option>M3A</option>
+                <option>M3B</option>
+                <option>M1C</option>
+                <option>M3D</option>
+                <option>M1F</option>
+                <option>M1I</option>
+                <option>M1IA</option>
+                <option>M1H</option>
+                <option>T1A</option>
+                <option>T1B</option>
+                <option>T1C</option>
+                <option>T1D</option>
+                <option>T1IA</option>
+                <option>T1I</option>
+                <option>T3FA</option>
+                <option>T2FC</option>
+                <option>T3F</option>
+                <option>T1FB</option>
+                <option>I1F</option>
+                <option>I1FA</option>
+                <option>I1HS</option>
+                <option>I1HSB</option>
+                <option>I1E</option>
+                <option>I2HSA</option>
+                <option>N1I</option>
+                <option>N3F</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td><input type="text" name="docente" placeholder="Docente" required></td>
+          </tr>
+        </table>
+        <button type="submit">Confirmar</button>
+      </form>
+    </main>
+  </div>
+  <a href="/"><button type="submit">Voltar ao início</button></a>
+
+
+  <%- include("../partials/footer") %>
 </body>
 
 </html>

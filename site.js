@@ -5,7 +5,7 @@ const sqlite3 = require('sqlite3').verbose();
 const app = express();
 const port = 8000;
 
-app.use(express.urlencoded({ extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Conexão com o BD
@@ -27,17 +27,17 @@ app.use(session({
     saveUninitialized: true
 }));
 
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
 app.set('view engine', 'ejs');
 
 // Rota inicial
 app.get("/", (req, res) => {
     const nome = req.session.nome_completo || null;
-    res.render("pages/index", { nome });
+    res.render("pages/index", { nome, req });
 });
 
-app.get("/cadastro",  (req, res) => {
+app.get("/cadastro", (req, res) => {
     res.render("pages/cadastro", {req});
 })
 
@@ -47,7 +47,7 @@ app.post("/cadastro", (req, res) => {
 
     const { nome_completo, email, senha, confirmar_senha } = req.body;
 
-    if( !nome_completo ||!email || !senha || !confirmar_senha) {
+    if (!nome_completo || !email || !senha || !confirmar_senha) {
         return res.redirect("/cadastro?mensagem=Preencha todos os campos");
     }
     if (senha !== confirmar_senha) {
@@ -64,7 +64,7 @@ app.post("/cadastro", (req, res) => {
 // Página de login
 app.get("/login", (req, res) => {
     const mensagem = req.query.mensagem || "";
-    res.render("pages/login", { mensagem });
+    res.render("pages/login", {mensagem, req});
 });
 
 // Login POST
@@ -75,7 +75,7 @@ app.post("/login", (req, res) => {
     const { nome_completo, email, senha, confirmar_senha } = req.body;
 
     if (!nome_completo || !email || !senha || !confirmar_senha) {
-        return res.redirect ("/login?mnsagem=Preencha todos oc campos");
+        return res.redirect("/login?mnsagem=Preencha todos oc campos");
     }
     const query = "SELECT * FROM cadastro WHERE email=? AND senha=?"
     db.get(query, [email, senha], (err, row) => {
@@ -83,22 +83,22 @@ app.post("/login", (req, res) => {
 
         console.log(`row: ${JSON.stringify(row)}`);
         if (row) {
-            req.session.loggedin=true;
-            req.session.email= row.email;
-            req.session.id_usuario= row.id;
+            req.session.loggedin = true;
+            req.session.email = row.email;
+            req.session.id_usuario = row.id;
             req.session.DocenteLogado = nome_completo;
             res.redirect("/");
         } else {
             res.redirect("/login?mensagem=Usuário ou senha inválidos");
-   
+
         }
     })
 })
 
 // Rota do ranking (visível apenas para docentes logados)
 app.get("/ranking", (req, res) => {
-        console.log("GET/ ranking")
-        const query = `
+    console.log("GET/ ranking")
+    const query = `
             SELECT codigo_sala,
                    SUM(item_doado * quantidade) AS pontuacao_total,
                    SUM(quantidade) AS total_itens,
@@ -108,12 +108,12 @@ app.get("/ranking", (req, res) => {
             GROUP BY codigo_sala
             ORDER BY pontuacao_total DESC
         `;
-        db.all(query, [], (err, row) => {
-            if (err) throw err;
-            console.log(JSON.stringify(row));
-            res.render("pages/ranking", { titulo: "Tabela de Doações", dados: row, req : req });
-        });
-    
+    db.all(query, [], (err, row) => {
+        if (err) throw err;
+        console.log(JSON.stringify(row));
+        res.render("pages/ranking", { titulo: "Tabela de Doações", dados: row, req: req });
+    });
+
 });
 
 // Demais rotas
@@ -123,14 +123,14 @@ app.get("/confirmar", (req, res) => {
 
 app.get("/info", (req, res) => {
     console.log("GET/ info")
-    res.render("pages/info");
+    res.render("pages/info", {req});
 });
 
 app.get("/doar", (req, res) => {
     if (!req.session.id_usuario) {
         return res.redirect("/confirmar");
     }
-    res.render("pages/doar", {req: req});
+    res.render("pages/doar", { req: req });
 });
 
 app.post("/doar", (req, res) => {
@@ -150,38 +150,38 @@ app.post("/doar", (req, res) => {
 
 app.get("/agradecimento", (req, res) => {
     console.log("GET /agradecimento")
-    res.render("pages/agradecimento");
+    res.render("pages/agradecimento", {req});
 });
-app.get("/post-create", (req, res) =>{
+app.get("/post-create", (req, res) => {
     console.log("GET /post-create");
     //verificar se o usuário está logado
     //se estiver logado, envie o formulário para a criação do post
-    if(req.session.loggedin){
-        res.render("pages/post-create", {titulo: "Criar postagem", req: req})
+    if (req.session.loggedin) {
+        res.render("pages/post-create", { titulo: "Criar postagem", req: req })
     } else {  // se não estiver logado, redirect para /nao-autorizado
         res.redirect("/erro")
     }
-   
+
 });
 
-app.post("/post-create", (req, res) =>{
+app.post("/post-create", (req, res) => {
     console.log("POST /post-create");
     //Pegar dados da postagem: UserID, Titulo Postagem, Conteúdo da postagem, Data da postagem
 
     //req.session.username, req.session.id_username
-    if(req.session.loggedin){
-    console.log("Dados da postagem: ", req.body);
-    const { titulo, conteudo} = req.body;
-    const data_criacao = new Date();
-    const data = data_criacao.toLocaleDateString();
-    console.log("Data da criação:", data, "Username: ", req.session.username, "id_usuario: ", req.session.id_usuario);
+    if (req.session.loggedin) {
+        console.log("Dados da postagem: ", req.body);
+        const { titulo, conteudo } = req.body;
+        const data_criacao = new Date();
+        const data = data_criacao.toLocaleDateString();
+        console.log("Data da criação:", data, "Username: ", req.session.username, "id_usuario: ", req.session.id_usuario);
 
-    const query = "INSERT INTO posts (item_doado, quantidade, data, codigo_sala, docente, id_usuario, pontuacao_final) VALUES (?, ?, ?, ?)"
+        const query = "INSERT INTO posts (item_doado, quantidade, data, codigo_sala, docente, id_usuario, pontuacao_final) VALUES (?, ?, ?, ?)"
 
-    db.get(query, [req.session.id_usuario, item_doado, quantidade, data], (err) =>{
-        if(err) throw err;
-        res.redirect('/post-tabela');
-    })
+        db.get(query, [req.session.id_usuario, item_doado, quantidade, data], (err) => {
+            if (err) throw err;
+            res.redirect('/post-tabela');
+        })
 
     } else {
         res.redirect("/erro");
@@ -195,19 +195,19 @@ app.get("/logout", (req, res) => {
         }
         res.redirect("/");
     })
-    });
+});
 
-    app.get("/post-tabela", (req, res) => {
-        console.log("GET /post-tabela")
-        const query = "SELECT * FROM posts";
-        db.all(query, [], (err, row) => {
-            if(err) throw err;
-            console.log(JSON.stringify(row));
-            res.render("pages/post-tabela", { titulo: "TABELA DE DOAÇÃO", dados: row, req: res});
+app.get("/post-tabela", (req, res) => {
+    console.log("GET /post-tabela")
+    const query = "SELECT * FROM posts";
+    db.all(query, [], (err, row) => {
+        if (err) throw err;
+        console.log(JSON.stringify(row));
+        res.render("pages/post-tabela", { titulo: "TABELA DE DOAÇÃO", dados: row, req: res });
 
-        })
+    })
 
-        });
+});
 
 
 // Rota de erro 404
