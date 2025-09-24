@@ -13,7 +13,7 @@ const db = new sqlite3.Database("doacao.db");
 db.serialize(() => {
     db.run("CREATE TABLE IF NOT EXISTS cadastro ( id INTEGER PRIMARY KEY AUTOINCREMENT, nome_completo TEXT, email TEXT,senha TEXT,confirmar_senha TEXT )"
     );
-    db.run("CREATE TABLE IF NOT EXISTS doar ( id INTEGER PRIMARY KEY AUTOINCREMENT, item_doado INT, quantidade INT, data DATE,codigo_sala TEXT,docente TEXT,pontuacao_final INT, id_usuario INT)"
+    db.run("CREATE TABLE IF NOT EXISTS doar ( id INTEGER PRIMARY KEY AUTOINCREMENT, doacao TEXT, item TEXT, quantidade INT, data DATE, aluno TEXT, codigo_sala TEXT,docente TEXT,pontuacao_final INT, id_usuario INT)"
     );
 });
 
@@ -97,10 +97,13 @@ app.post("/login", (req, res) => {
 
 // Rota do ranking (visível apenas para docentes logados)
 app.get("/ranking", (req, res) => {
-    console.log("GET/ ranking")
-    const query = `
-            SELECT codigo_sala,
-                   SUM(item_doado * quantidade) AS pontuacao_total,
+        console.log("GET/ ranking")
+        const query = `
+            SELECT codigo_sala, 
+                   doacao, 
+                   item,
+                   aluno,
+                   SUM(item * quantidade) AS pontuacao_total,
                    SUM(quantidade) AS total_itens,
                    MAX(data) AS data_recente,
                    MAX(docente) AS docente
@@ -134,15 +137,15 @@ app.get("/doar", (req, res) => {
 });
 
 app.post("/doar", (req, res) => {
-    const { item_doado, quantidade, data, codigo_sala, docente } = req.body;
+    const {  doacao, item, quantidade, data, aluno, codigo_sala, docente } = req.body;
     const id_usuario = req.session.id_usuario;
-    const pontuacao_final = item_doado * quantidade;
+    const pontuacao_final = item * quantidade;
 
     const query = `
-        INSERT INTO doar (item_doado, quantidade, data, codigo_sala, docente, id_usuario, pontuacao_final)
-        VALUES (?, ?, ?, ?, ?, ?, ?)
+        INSERT INTO doar (doacao, item, quantidade, data, aluno, codigo_sala, docente, id_usuario, pontuacao_final)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
     `;
-    db.run(query, [item_doado, quantidade, data, codigo_sala, docente, id_usuario, pontuacao_final], function (err) {
+    db.run(query, [doacao, item, quantidade, data, aluno, codigo_sala, docente, id_usuario, pontuacao_final], function (err) {
         if (err) throw err;
         res.redirect("/agradecimento");
     });

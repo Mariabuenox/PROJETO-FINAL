@@ -7,7 +7,7 @@
 }
 
 body {
-    background-image: url('fundo.jpg');
+    background-image: url('fundo.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -18,9 +18,9 @@ body {
     flex-direction: column;
 }
 
-body.erro{
-background-image: url('erro404.jpeg');
-backdrop-filter: none;
+body.erro {
+    background-image: url('erro404.jpeg');
+    backdrop-filter: none;
 }
 
 .box-index {

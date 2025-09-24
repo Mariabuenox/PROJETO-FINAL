@@ -1,17 +1,26 @@
 <%- include("../partials/head") %>
 
 <%- include("../partials/menu") %>
-
 <body>
+  <% if (nome) { %>
+  <div class="docente">
+    <p style="color:#070707; " class="Docente Logado">
+      <%= nome_completo %>
+    </p>
+    <a href="/logout"><button type="submit">SAIR</button></a>
+  </div>
+  <% } %>
+
+<!-- <body>
 
   <div class="box-index">
     <h1>Auxilium</h1>
     <p>Seja Bem-Vindo</p>
     <a href="/login"><button type="submit">Entrar</button></a>
     <a href="/cadastro"><button type="submit">Cadastrar</button></a>
-  </div>
+  </div> -->
 
-  <%- include("../partials/footer") %>
-</body>
+  <%#- include("../partials/footer") %>
+<!-- </body>
 
-</html>
+</html> -->
