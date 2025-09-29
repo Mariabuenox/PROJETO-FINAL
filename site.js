@@ -33,8 +33,9 @@ app.set('view engine', 'ejs');
 
 // Rota inicial
 app.get("/", (req, res) => {
-    const nome = req.session.nome_completo || null;
-    res.render("pages/index", { nome, req });
+    const nome = req.session.UsuarioLogado;
+    res.render("pages/index", { nome, req});
+    console.log("Nome da Sessão:", req.session.UsuarioLogado);
 });
 
 app.get("/cadastro", (req, res) => {
@@ -45,18 +46,18 @@ app.post("/cadastro", (req, res) => {
     console.log("POST /cadastro");
     console.log(JSON.stringify(req.body));
 
-    const { nome_completo, email, senha, confirmar_senha } = req.body;
+    const { nome_completo, email, senha, confirmar_senha, tipo } = req.body;
 
-    if (!nome_completo || !email || !senha || !confirmar_senha) {
+    if (!nome_completo || !email || !senha || !confirmar_senha || !tipo) {
         return res.redirect("/cadastro?mensagem=Preencha todos os campos");
     }
     if (senha !== confirmar_senha) {
         return res.redirect("/cadastro?mensagem=As senhas não são iguais");
     }
     const insertQuery = "INSERT INTO cadastro (nome_completo, email, senha, confirmar_senha) VALUES (?, ?, ?, ?)";
-    db.run(insertQuery, [nome_completo, email, senha, confirmar_senha], function (err) {
+    db.run(insertQuery, [nome_completo, email, senha, confirmar_senha, tipo], function (err) {
         if (err) throw err;
-        console.log("Novo usuário cadastrdo:", nome_completo);
+        console.log("Novo usuário cadastrado: nome_completo");
         return res.redirect("/cadastro?mensagem=Cadastro efetuado com sucesso");
     })
 })
@@ -72,9 +73,9 @@ app.post("/login", (req, res) => {
     console.log("POST /login");
     console.log(JSON.stringify(req.body));
 
-    const { nome_completo, email, senha, confirmar_senha } = req.body;
+    const {email, senha, tipo} = req.body;
 
-    if (!nome_completo || !email || !senha || !confirmar_senha) {
+    if (!email || !senha || !tipo) {
         return res.redirect("/login?mnsagem=Preencha todos oc campos");
     }
     const query = "SELECT * FROM cadastro WHERE email=? AND senha=?"
@@ -86,10 +87,10 @@ app.post("/login", (req, res) => {
             req.session.loggedin = true;
             req.session.email = row.email;
             req.session.id_usuario = row.id;
-            req.session.DocenteLogado = nome_completo;
+            req.session.UsuarioLogado = nome_completo;
             res.redirect("/");
         } else {
-            res.redirect("/login?mensagem=Usuário ou senha inválidos");
+            res.redirect("/login?mensagem=Usuário ou senha  inválidos");
 
         }
     })
@@ -179,7 +180,7 @@ app.post("/post-create", (req, res) => {
         const data = data_criacao.toLocaleDateString();
         console.log("Data da criação:", data, "Username: ", req.session.username, "id_usuario: ", req.session.id_usuario);
 
-        const query = "INSERT INTO posts (item_doado, quantidade, data, codigo_sala, docente, id_usuario, pontuacao_final) VALUES (?, ?, ?, ?)"
+    const query = "INSERT INTO posts (item_doado, quantidade, data, codigo_sala, docente, id_usuario, pontuacao_final) VALUES (?, ?, ?, ?, ?, ?,?)"
 
         db.get(query, [req.session.id_usuario, item_doado, quantidade, data], (err) => {
             if (err) throw err;
