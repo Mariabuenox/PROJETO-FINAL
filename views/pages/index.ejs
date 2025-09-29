@@ -1,7 +1,12 @@
 <%- include("../partials/head") %>
 
 <%- include("../partials/menu") %>
+<<<<<<< HEAD
+=======
+
+>>>>>>> MariaClara
 <body>
+
   <% if (nome) { %>
   <div class="docente">
     <p style="color:#070707; " class="Docente Logado">
@@ -11,7 +16,11 @@
   </div>
   <% } %>
 
+<<<<<<< HEAD
 <!-- <body>
+=======
+  <% if (!req.session.loggedin) { %>
+>>>>>>> MariaClara
 
   <div class="box-index">
     <h1>Auxilium</h1>
@@ -20,7 +29,50 @@
     <a href="/cadastro"><button type="submit">Cadastrar</button></a>
   </div> -->
 
+<<<<<<< HEAD
   <%#- include("../partials/footer") %>
 <!-- </body>
+=======
+  <% } else { %>
+
+  <section id="#cards">
+    <div class="info">
+      <!-- <img src="./imagens/cinza.png" alt="Imagem 2" class="card-imagem"> -->
+      <div class="card-conteudo">
+        <h2 class="card-titulo">Card</h2>
+        <p class="card-descricao">Segundo card com estrutura idêntica mas conteúdo diferente.</p>
+      </div>
+    </div>
+
+    <div class="info">
+      <!-- <img src="./imagens/cinza.png" alt="Imagem 2" class="card-imagem"> -->
+      <div class="card-conteudo">
+        <h2 class="card-titulo">Card</h2>
+        <p class="card-descricao">Segundo card com estrutura idêntica mas conteúdo diferente.</p>
+      </div>
+    </div>
+
+    <div class="info">
+      <!-- <img src="./imagens/cinza.png" alt="Imagem 2" class="card-imagem"> -->
+      <div class="card-conteudo">
+        <h2 class="card-titulo">Card</h2>
+        <p class="card-descricao">Segundo card com estrutura idêntica mas conteúdo diferente.</p>
+      </div>
+    </div>
+
+    <div class="info">
+      <!-- <img src="./imagens/cinza.png" alt="Imagem 2" class="card-imagem"> -->
+      <div class="card-conteudo">
+        <h2 class="card-titulo">Card</h2>
+        <p class="card-descricao">Segundo card com estrutura idêntica mas conteúdo diferente.</p>
+      </div>
+    </div>
+  </section>
+
+  <% } %>
+
+  <%- include("../partials/footer") %>
+</body>
+>>>>>>> MariaClara
 
 </html> -->
