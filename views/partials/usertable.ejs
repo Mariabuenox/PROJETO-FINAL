@@ -6,7 +6,7 @@
                 <th>Orientador</th>
                 <th>Campanha</th>
                 <th>Pontuação dos itens</th>
-                <th>Itens doados</th>
+                <th>Quantidade</th>
                 <th>Aluno</th>
                 <th>Data</th>
                 <th>Pontuação da sala</th>
@@ -28,13 +28,13 @@
                         <%= dados[i].item %>
                     </td>
                     <td>
+                        <%= dados[i].total_itens %>
+                    </td>
+                    <td>
                         <%= dados[i].aluno %>
                     </td>
                     <td>
                         <%= dados[i].data_recente %>
-                    </td>
-                    <td>
-                        <%= dados[i].total_itens %>
                     </td>
                     <td>
                         <%= dados[i].pontuacao_total %>
