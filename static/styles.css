@@ -18,15 +18,9 @@ body {
     flex-direction: column;
 }
 
-<<<<<<< HEAD
-body.erro {
-    background-image: url('erro404.jpeg');
-    backdrop-filter: none;
-=======
 body.erro{
 background-image: url('erro404.jpeg');
 backdrop-filter: none;
->>>>>>> MariaClara
 }
 
 .box-index {
