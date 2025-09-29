@@ -89,7 +89,7 @@ app.post("/login", (req, res) => {
             req.session.DocenteLogado = nome_completo;
             res.redirect("/");
         } else {
-            res.redirect("/login?mensagem=Usuário ou senha inválidos");
+            res.redirect("/login?mensagem=Usuário ou senha  inválidos");
 
         }
     })
