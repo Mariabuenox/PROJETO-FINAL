@@ -53,7 +53,7 @@ backdrop-filter: none;
     z-index: 100;
 }
 
-.DocenteLogado {
+.UsuarioLogado {
     display: inline-block;
     border: 1px solid #1a6bc4;
     /* Borda azul */
