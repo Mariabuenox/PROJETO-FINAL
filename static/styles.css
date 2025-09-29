@@ -63,7 +63,7 @@ p{
     z-index: 100;
 }
 
-.DocenteLogado {
+.nome {
     display: inline-block;
     border: 1px solid #1a6bc4; /* Borda azul */
     padding: 8px 16px;
