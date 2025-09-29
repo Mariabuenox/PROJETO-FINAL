@@ -1,4 +1,5 @@
 <menu>
+<<<<<<< HEAD
     <header>
       <nav>
         <ul>
@@ -11,3 +12,20 @@
       </nav>
     </header>
   </menu>
+=======
+  <header>
+    <nav>
+      <ul>
+        <!-- <img src="logo.png"> -->
+        <li><a href="/campanhas">Campanhas</a></li>
+        <li><a href="/info">Sobre nós</a></li>
+       <% if (req.session.loggedin) { %>
+        <li><a href="/logout">Sair</a></li>
+        <li><a href="/doar">Doações</a></li>
+        <% } %>
+        <li><a href="/">home</a></li>
+      </ul>
+    </nav>
+  </header>
+</menu>
+>>>>>>> MariaClara

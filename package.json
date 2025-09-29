@@ -4,7 +4,11 @@
     "ejs": "^3.1.10",
     "express": "^5.1.0",
     "express-session": "^1.18.2",
+<<<<<<< HEAD
     "package.json": "^0.0.0",
+=======
+    "package.json": "^2.0.1",
+>>>>>>> MariaClara
     "sqlite3": "^5.1.7"
   }
 }

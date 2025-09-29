@@ -1,40 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-
 <%- include("../partials/head") %>
 
-<body class="desfocar">
-    <div class="login">
-      <h1>Login</h1>
+<%- include("../partials/menu") %>
 
-      <% if (mensagem) { %>
-      <p style="color:#000000;"><%= mensagem %></p>
-      <% } %>
+<div class="login">
 
-      <main>
-        <form action="/login" method="POST" class="formItens">
-          <Label>Nome Completo:</Label>
-          <input tipe="text" name="nome_completo" placeholder="Digite seu Nome Completo" required> 
-          <Label>Email:</Label>
-          <input type="email" name="email" placeholder="Email" required>
-          <Label>Senha:</Label>
-          <input type="password" name="senha" placeholder="Senha" required>
-          <Label>Confirmar senha:</Label>
-          <input type="password" name="confirmar_senha" placeholder="Confirme a senha" required>
-          <select name="tipo" required>
-            <option value="">Selecione o tipo</option>
-            <option value="docente">Docente</option>
-          </select>
-          <button type="submit">Entrar</button>
-        </form>
-        <a href="/"><button type="submit">Voltar</button></a>
-      </main>
-    </div>
+  <!-- <%# if (mensagem) { %>
+  <p style="color:#000000;"><%#= mensagem %></p>
+  <%# } %> -->
 
-    
-  
+  <div class="box-index">
+    <h1>Ja tem uma conta?</h1>
+  </div>
 
-  <%- include("../partials/footer") %>
-</body>
+  <main>
+    <h1>login</h1>
+    <form action="/" method="POST" class="formItens">
+      <Label>Email:</Label>
+      <input type="email" name="email" required>
+      <Label>Senha:</Label>
+      <input type="password" name="senha" required>
+      <select name="tipo" required>
+        <option value="">Selecione o tipo</option>
+        <option value="docente">Comum</option>
+        <option value="docente">Docente</option>
+      </select>
+      <button type="submit">Entrar</button>
+    </form>
+  </main>
+</div>
+
+
+<%- include("../partials/footer") %>
 
 </html>
