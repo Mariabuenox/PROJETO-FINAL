@@ -33,8 +33,9 @@ app.set('view engine', 'ejs');
 
 // Rota inicial
 app.get("/", (req, res) => {
-    const nome = req.session.nome_completo || null;
-    res.render("pages/index", { nome, req });
+    const nome = req.session.UsuarioLogado;
+    res.render("pages/index", { nome, req});
+    console.log("Nome da Sessão:", req.session.UsuarioLogado);
 });
 
 app.get("/cadastro", (req, res) => {
@@ -56,7 +57,7 @@ app.post("/cadastro", (req, res) => {
     const insertQuery = "INSERT INTO cadastro (nome_completo, email, senha, tipo) VALUES (?, ?, ?, ?)";
     db.run(insertQuery, [nome_completo, email, senha, tipo], function (err) {
         if (err) throw err;
-        console.log("Novo usuário cadastrdo:", nome_completo);
+        console.log("Novo usuário cadastrado: nome_completo");
         return res.redirect("/cadastro?mensagem=Cadastro efetuado com sucesso");
     })
 })
@@ -89,7 +90,7 @@ app.post("/login", (req, res) => {
             req.session.DocenteLogado = row.tipo === 'Docente';
             res.redirect("/");
         } else {
-            res.redirect("/login?mensagem=Usuário ou senha inválidos");
+            res.redirect("/login?mensagem=Usuário ou senha  inválidos");
 
         }
     })
@@ -179,7 +180,7 @@ app.post("/post-create", (req, res) => {
         const data = data_criacao.toLocaleDateString();
         console.log("Data da criação:", data, "Username: ", req.session.username, "id_usuario: ", req.session.id_usuario);
 
-        const query = "INSERT INTO posts (item_doado, quantidade, data, codigo_sala, docente, id_usuario, pontuacao_final) VALUES (?, ?, ?, ?)"
+    const query = "INSERT INTO posts (item_doado, quantidade, data, codigo_sala, docente, id_usuario, pontuacao_final) VALUES (?, ?, ?, ?, ?, ?,?)"
 
         db.get(query, [req.session.id_usuario, item_doado, quantidade, data], (err) => {
             if (err) throw err;
