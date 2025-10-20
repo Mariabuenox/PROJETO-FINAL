@@ -11,7 +11,7 @@ app.use(express.json());
 // Conexão com o BD
 const db = new sqlite3.Database("doacao.db");
 db.serialize(() => {
-    db.run("CREATE TABLE IF NOT EXISTS cadastro ( id INTEGER PRIMARY KEY AUTOINCREMENT, nome_completo TEXT, email TEXT,senha TEXT,confirmar_senha TEXT )"
+    db.run("CREATE TABLE IF NOT EXISTS cadastro ( id INTEGER PRIMARY KEY AUTOINCREMENT, nome_completo TEXT, email TEXT,senha TEXT,confirmar_senha TEXT, tipo TEXT)"
     );
     db.run("CREATE TABLE IF NOT EXISTS doar ( id INTEGER PRIMARY KEY AUTOINCREMENT, doacao TEXT, item TEXT, quantidade INT, data DATE, aluno TEXT, codigo_sala TEXT,docente TEXT,pontuacao_final INT, id_usuario INT)"
     );
@@ -45,16 +45,16 @@ app.post("/cadastro", (req, res) => {
     console.log("POST /cadastro");
     console.log(JSON.stringify(req.body));
 
-    const { nome_completo, email, senha, confirmar_senha } = req.body;
+    const { nome_completo, email, senha, confirmar_senha, tipo } = req.body;
 
-    if (!nome_completo || !email || !senha || !confirmar_senha) {
+    if (!nome_completo || !email || !senha || !confirmar_senha || !tipo) {
         return res.redirect("/cadastro?mensagem=Preencha todos os campos");
     }
     if (senha !== confirmar_senha) {
         return res.redirect("/cadastro?mensagem=As senhas não são iguais");
     }
-    const insertQuery = "INSERT INTO cadastro (nome_completo, email, senha, confirmar_senha) VALUES (?, ?, ?, ?)";
-    db.run(insertQuery, [nome_completo, email, senha, confirmar_senha], function (err) {
+    const insertQuery = "INSERT INTO cadastro (nome_completo, email, senha, tipo) VALUES (?, ?, ?, ?)";
+    db.run(insertQuery, [nome_completo, email, senha, tipo], function (err) {
         if (err) throw err;
         console.log("Novo usuário cadastrdo:", nome_completo);
         return res.redirect("/cadastro?mensagem=Cadastro efetuado com sucesso");
@@ -72,9 +72,9 @@ app.post("/login", (req, res) => {
     console.log("POST /login");
     console.log(JSON.stringify(req.body));
 
-    const { nome_completo, email, senha, confirmar_senha } = req.body;
+    const { email, senha} = req.body;
 
-    if (!nome_completo || !email || !senha || !confirmar_senha) {
+    if (!email || !senha) {
         return res.redirect("/login?mnsagem=Preencha todos oc campos");
     }
     const query = "SELECT * FROM cadastro WHERE email=? AND senha=?"
@@ -86,7 +86,7 @@ app.post("/login", (req, res) => {
             req.session.loggedin = true;
             req.session.email = row.email;
             req.session.id_usuario = row.id;
-            req.session.DocenteLogado = nome_completo;
+            req.session.DocenteLogado = row.tipo === 'Docente';
             res.redirect("/");
         } else {
             res.redirect("/login?mensagem=Usuário ou senha inválidos");
