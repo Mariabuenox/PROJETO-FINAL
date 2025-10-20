@@ -33,9 +33,9 @@ app.set('view engine', 'ejs');
 
 // Rota inicial
 app.get("/", (req, res) => {
-    const nome = req.session.UsuarioLogado;
-    res.render("pages/index", { nome});
-    console.log("Nome da Sessão:", req.session.UsuarioLogado);
+    const nome = req.session.DocenteLogado;
+    res.render("pages/index", { nome, req });
+    console.log("Nome da Sessão:", nome);
 });
 
 app.get("/cadastro",  (req, res) => {
@@ -46,18 +46,18 @@ app.post("/cadastro", (req, res) => {
     console.log("POST /cadastro");
     console.log(JSON.stringify(req.body));
 
-    const { nome_completo, email, senha, confirmar_senha } = req.body;
+    const { nome_completo, email, senha, confirmar_senha, tipo } = req.body;
 
-    if( !nome_completo ||!email || !senha || !confirmar_senha) {
+    if (!nome_completo || !email || !senha || !confirmar_senha || !tipo) {
         return res.redirect("/cadastro?mensagem=Preencha todos os campos");
     }
     if (senha !== confirmar_senha) {
         return res.redirect("/cadastro?mensagem=As senhas não são iguais");
     }
     const insertQuery = "INSERT INTO cadastro (nome_completo, email, senha, confirmar_senha) VALUES (?, ?, ?, ?)";
-    db.run(insertQuery, [nome_completo, email, senha, confirmar_senha], function (err) {
+    db.run(insertQuery, [nome_completo, email, senha, confirmar_senha, tipo], function (err) {
         if (err) throw err;
-        console.log("Novo usuário cadastrado:, nome_completo");
+        console.log("Novo usuário cadastrado: nome_completo");
         return res.redirect("/cadastro?mensagem=Cadastro efetuado com sucesso");
     })
 })
@@ -65,7 +65,7 @@ app.post("/cadastro", (req, res) => {
 // Página de login
 app.get("/login", (req, res) => {
     const mensagem = req.query.mensagem || "";
-    res.render("pages/login", { mensagem });
+    res.render("pages/login", { mensagem, req });
 });
 
 // Login POST
@@ -73,9 +73,9 @@ app.post("/login", (req, res) => {
     console.log("POST /login");
     console.log(JSON.stringify(req.body));
 
-    const { nome_completo, email, senha, confirmar_senha } = req.body;
+    const { nome_completo, email, senha } = req.body;
 
-    if (!nome_completo || !email || !senha || !confirmar_senha) {
+    if (!nome_completo || !email || !senha) {
         return res.redirect ("/login?mnsagem=Preencha todos oc campos");
     }
     const query = "SELECT * FROM cadastro WHERE email=? AND senha=?"
@@ -87,7 +87,7 @@ app.post("/login", (req, res) => {
             req.session.loggedin=true;
             req.session.email= row.email;
             req.session.id_usuario= row.id;
-            req.session.UsuarioLogado = nome_completo;
+            req.session.DocenteLogado = nome;
             res.redirect("/");
         } else {
             res.redirect("/login?mensagem=Usuário ou senha inválidos");
@@ -131,7 +131,7 @@ app.get("/info", (req, res) => {
 });
 
 app.get("/doar", (req, res) => {
-    if (!req.session.id_usuario) {
+    if (!req.session.DocenteLogado) {
         return res.redirect("/confirmar");
     }
     res.render("pages/doar", {req: req});
@@ -154,7 +154,7 @@ app.post("/doar", (req, res) => {
 
 app.get("/agradecimento", (req, res) => {
     console.log("GET /agradecimento")
-    res.render("pages/agradecimento");
+    res.render("pages/agradecimento", {req});
 });
 app.get("/post-create", (req, res) =>{
     console.log("GET /post-create");
