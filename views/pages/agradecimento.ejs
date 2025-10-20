@@ -1,19 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include("../partials/head") %>
 
-<%- include("../partials/header") %>
+<body>
+  <h2 class="titulo-index">Obrigado pela doação!</h2>
+  <img src='./static/agradecimento.jpg' />
+  <a href="/"><button type="submit">Voltar para página inicial</button></a>
+  <a href="/doar"><button type="submit">Doar novamente</button></a>
+  <a href="/ranking"><button type="submit">Tabela de Doações</button></a>
 
-<body class="desfocar">
-    <center>
-        <br><br>
-        <h2 class="titulo-index">Obrigado pela doação!</h2><br><br>
-        <img src='./static/agradecimento.png' /><br><br><br>
-
-        <a href="/"><button type="submit">Voltar para página inicial</button></a>
-        <a href="/doar"><button type="submit">Doar novamente</button></a>
-        <a href="/ranking"><button type="submit">Tabela de Doações</button></a><br><br><br>
-        <%- include("../partials/footer") %>
-    </center>
+  <%- include("../partials/footer") %>
 </body>
 
 </html>

@@ -47,7 +47,7 @@ backdrop-filter: none;
     z-index: 100;
 }
 
-.DocenteLogado {
+.UsuarioLogado {
     display: inline-block;
     border: 1px solid #1a6bc4;
     /* Borda azul */
@@ -351,7 +351,7 @@ footer {
     overflow: hidden;
     height: 100%;
     margin: 20px;
-   
+    
 }
 
 /* .card-imagem {
@@ -381,7 +381,7 @@ footer {
     #cards {
         flex-direction: column;
     }
-   
+    
     .card-imagem {
         width: 100%;
         height: 200px;

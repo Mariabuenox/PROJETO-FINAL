@@ -1,16 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include("../partials/head") %>
 
-<%- include("../partials/header") %>
+<body>
+    <main>
+      <%- include("../partials/posttable"); %>
+    </main>
+    <a href="/"><button type="submit">Voltar</button></a>
 
-<body class="desfocar">
-    <center><br>
-        <main>
-            <%- include("../partials/usertable"); %>
-        </main>
-        <a href="/"><button type="submit">Voltar</button></a><br><br><br>
-        <center>
-            <%- include("../partials/footer") %>
+      <%- include("../partials/footer") %>
 </body>
 
 </html>
