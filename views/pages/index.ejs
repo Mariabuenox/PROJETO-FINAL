@@ -1,21 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+  <body>
+    <% if (nome) { %>
+      <div class="nome">
+        <p style="color:#070707;">
+          Bem-vindo, <%= nome %>!
+        </p>
+        <a href="/logout"><button type="submit">SAIR</button></a>
+      </div>
+    <% } %>
 
-<%- include("../partials/head") %>
-
-
-<%- include("../partials/menu") %>
-<body>
-  <% if (nome) { %>
-  <div class="nome">
-    <p style="color:#070707; " class="nome">
-      <%= nome %>
-    </p>
-    <a href="/logout"> <button type="submit">SAIR</button></a>
-  </div>
-  <% } %>
-
-  <%- include("../partials/footer") %>
-</body>
-
+    <h1>Bem-vindo ao Sistema de Doações!</h1>
+  </body>
 </html>

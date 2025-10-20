@@ -30,13 +30,22 @@ app.use(session({
 app.use(express.urlencoded({extended: true}));
 
 app.set('view engine', 'ejs');
+function autenticado(req, res, next) {
+    if (req.session.loggedin) {
+      next(); // continua para a próxima função (a rota)
+    } else {
+      res.redirect('/login?mensagem=Faça login para continuar');
+    }
+  }
+  
 
 // Rota inicial
-app.get("/", (req, res) => {
-    const nome = req.session.DocenteLogado;
+app.get("/", autenticado, (req, res) => {
+    console.log('Sessão atual:', req.session);
+    const nome = req.session.nome; 
     res.render("pages/index", { nome, req });
-    console.log("Nome da Sessão:", nome);
 });
+
 
 app.get("/cadastro",  (req, res) => {
     res.render("pages/cadastro", {req});
@@ -46,18 +55,18 @@ app.post("/cadastro", (req, res) => {
     console.log("POST /cadastro");
     console.log(JSON.stringify(req.body));
 
-    const { nome_completo, email, senha, confirmar_senha, tipo } = req.body;
+    const { nome_completo, email, senha, confirmar_senha} = req.body;
 
-    if (!nome_completo || !email || !senha || !confirmar_senha || !tipo) {
+    if (!nome_completo || !email || !senha || !confirmar_senha ) {
         return res.redirect("/cadastro?mensagem=Preencha todos os campos");
     }
     if (senha !== confirmar_senha) {
         return res.redirect("/cadastro?mensagem=As senhas não são iguais");
     }
     const insertQuery = "INSERT INTO cadastro (nome_completo, email, senha, confirmar_senha) VALUES (?, ?, ?, ?)";
-    db.run(insertQuery, [nome_completo, email, senha, confirmar_senha, tipo], function (err) {
+    db.run(insertQuery, [nome_completo, email, senha, confirmar_senha], function (err) {
         if (err) throw err;
-        console.log("Novo usuário cadastrado: nome_completo");
+        console.log("Novo usuário cadastrado:", nome_completo);
         return res.redirect("/cadastro?mensagem=Cadastro efetuado com sucesso");
     })
 })
@@ -73,28 +82,28 @@ app.post("/login", (req, res) => {
     console.log("POST /login");
     console.log(JSON.stringify(req.body));
 
-    const { nome_completo, email, senha } = req.body;
+    const { email, senha } = req.body;
 
-    if (!nome_completo || !email || !senha) {
-        return res.redirect ("/login?mnsagem=Preencha todos oc campos");
+    if (!email || !senha) {
+        return res.redirect("/login?mensagem=Preencha todos os campos");
     }
-    const query = "SELECT * FROM cadastro WHERE email=? AND senha=?"
+
+    const query = "SELECT * FROM cadastro WHERE email=? AND senha=?";
     db.get(query, [email, senha], (err, row) => {
         if (err) throw err;
 
         console.log(`row: ${JSON.stringify(row)}`);
         if (row) {
-            req.session.loggedin=true;
-            req.session.email= row.email;
-            req.session.id_usuario= row.id;
-            req.session.DocenteLogado = nome;
+            req.session.loggedin = true;
+            req.session.email = row.email;
+            req.session.id_usuario = row.id;
+            req.session.nome = nome_completo; // ← usa o nome real do BD
             res.redirect("/");
         } else {
             res.redirect("/login?mensagem=Usuário ou senha inválidos");
-   
         }
-    })
-})
+    });
+});
 
 // Rota do ranking (visível apenas para docentes logados)
 app.get("/ranking", (req, res) => {
@@ -131,7 +140,7 @@ app.get("/info", (req, res) => {
 });
 
 app.get("/doar", (req, res) => {
-    if (!req.session.DocenteLogado) {
+    if (!req.session.id_usuario) {
         return res.redirect("/confirmar");
     }
     res.render("pages/doar", {req: req});
