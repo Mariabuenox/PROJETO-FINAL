@@ -18,9 +18,9 @@ body {
     flex-direction: column;
 }
 
-body.erro{
-background-image: url('erro404.jpeg');
-backdrop-filter: none;
+body.erro {
+    background-image: url('erro404.jpeg');
+    backdrop-filter: none;
 }
 
 .box-index {
@@ -36,6 +36,17 @@ backdrop-filter: none;
         margin: 10px 0;
     }
 }
+
+main {
+
+    align-self: center;
+
+    a {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
 
 .docente-container {
     position: fixed;
@@ -110,7 +121,7 @@ button:hover {
 }
 
 table {
-    width: 90%;
+    width: 450px;
     margin: 30px auto;
     /* Centraliza tabela */
     border-collapse: collapse;
@@ -122,7 +133,7 @@ table {
 }
 
 table thead {
-    background: linear-gradient(to right, #1a6bc4, #2980b9);
+    background: linear-gradient(to right, #9C0720, #ae2a40);
     /* Gradiente azul */
     color: #ffffff;
     text-transform: uppercase;
@@ -133,22 +144,28 @@ table th,
 table td {
     padding: 15px;
     text-align: center;
-    border-bottom: 1px solid #e2e8f0;
-    /* Linha cinza claro */
 }
 
 table tbody tr {
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: #FF9398;
 }
 
-table tbody tr:nth-child(even) {
-    background-color: rgba(248, 250, 252, 0.7);
-    /* Cinza muito claro */
-}
+/* table tbody tr:nth-child(even) {
+    background-color: #FF9398;
+
+} */
 
 table tbody tr:hover {
-    background-color: rgba(237, 242, 247, 0.8);
+    background-color: #ffc8d3;
     /* Cinza azulado */
+}
+
+table tbody td input,
+select {
+    width: 200px;
+    height: 2.5rem;
+    border-radius: 5px;
+    border: solid 1px #c6c6c6;
 }
 
 .img-container {
@@ -295,7 +312,6 @@ nav {
 }
 
 
-
 footer {
     margin-top: auto;
     background: #9C0720;
@@ -347,11 +363,11 @@ footer {
     display: flex;
     background: #FF9398;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     height: 100%;
     margin: 20px;
-    
+
 }
 
 /* .card-imagem {
@@ -381,7 +397,7 @@ footer {
     #cards {
         flex-direction: column;
     }
-    
+
     .card-imagem {
         width: 100%;
         height: 200px;
