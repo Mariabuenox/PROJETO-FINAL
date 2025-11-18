@@ -3,15 +3,6 @@
 <%- include("../partials/menu") %>
 <body>
 
-  <!-- <%# if (UsuarioLogado) { %>
-  <div class="UsuarioLogado">
-    <p style="color:#070707; " class="UsuarioLogado">
-      <%#= nome_completo %>
-    </p>
-    <a href="/logout"> <button type="submit">SAIR</button></a>
-  </div>
-  <%# } %> -->
-
   <% if (!req.session.loggedin) { %>
 
   <div class="box-index">

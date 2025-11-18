@@ -65,7 +65,7 @@ app.post("/cadastro", (req, res) => {
     const insertQuery = "INSERT INTO cadastro (nome_completo, email, senha, tipo) VALUES (?, ?, ?, ?)";
     db.run(insertQuery, [nome_completo, email, senha, tipo], function (err) {
         if (err) throw err;
-        console.log("Novo usuário cadastrado: nome_completo");
+        console.log("Novo usuário cadastrado:", nome_completo);
         return res.redirect("/cadastro?mensagem=Cadastro efetuado com sucesso");
     })
 })
@@ -97,6 +97,7 @@ app.post("/login", (req, res) => {
             req.session.email = row.email;
             req.session.id_usuario = row.id;
             req.session.DocenteLogado = row.tipo === 'Docente';
+            req.session.UsuarioLogado = row.nome_completo;
             res.redirect("/");
         } else {
             res.redirect("/login?mensagem=Usuário ou senha  inválidos");
