@@ -35,7 +35,7 @@ app.set('view engine', 'ejs');
 app.get("/", (req, res) => {
     const nome = req.session.UsuarioLogado;
     res.render("pages/index", { nome, req});
-    console.log("Nome da Sessão:", req.session.UsuarioLogado);
+    console.log("Nome da Sessão:", /*req.session.UsuarioLogado*/ nome_completo);
 });
 
 app.get("/cadastro", (req, res) => {
