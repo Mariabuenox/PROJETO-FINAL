@@ -9,7 +9,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Conexão com o BD
-const db = new sqlite3.Database("doacao.db");
+const db = new sqlite3.Database("campanhas.db");
 db.serialize(() => {
     db.run("CREATE TABLE IF NOT EXISTS cadastro ( id INTEGER PRIMARY KEY AUTOINCREMENT, nome_completo TEXT, email TEXT,senha TEXT,confirmar_senha TEXT, tipo TEXT)"
     );
@@ -35,7 +35,7 @@ app.set('view engine', 'ejs');
 app.get("/", (req, res) => {
     const nome = req.session.UsuarioLogado;
     res.render("pages/index", { nome, req});
-    console.log("Nome da Sessão:", /*req.session.UsuarioLogado*/ nome_completo);
+    // console.log("Nome da Sessão:", /*req.session.UsuarioLogado*/ nome_completo);
 });
 
 app.get("/cadastro", (req, res) => {
@@ -137,7 +137,7 @@ app.get("/doar", (req, res) => {
     res.render("pages/doar", { req: req });
 });
 
-app.post("/doar", (req, res) => {
+app.post("/doar_agasalho", (req, res) => {
     const {  doacao, item, quantidade, data, aluno, codigo_sala, docente } = req.body;
     const id_usuario = req.session.id_usuario;
     const pontuacao_final = item * quantidade;
