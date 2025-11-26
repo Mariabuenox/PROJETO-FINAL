@@ -3,7 +3,18 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    /* Nova fonte moderna */
+}
+
+/* GARANTE QUE O BACKGROUND NÃO BLOQUEIE CLIQUES */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    z-index: -1;
 }
 
 body {
@@ -19,23 +30,26 @@ body {
 }
 
 body.erro{
-background-image: url('erro404.jpeg');
-backdrop-filter: none;
+    background-image: url('erro404.jpeg');
+    backdrop-filter: none;
 }
+
+/* ----------------- BOX INDEX ----------------- */
 
 .box-index {
     font-size: 1.5rem;
     margin: auto;
     line-height: 1.5;
     text-align: center;
-    color: #000000;
+    color: #000;
     width: auto;
-
-
-    button {
-        margin: 10px 0;
-    }
 }
+
+.box-index button {
+    margin: 10px 0;
+}
+
+/* ---------------- USER LOGADO ---------------- */
 
 .docente-container {
     position: fixed;
@@ -50,20 +64,16 @@ backdrop-filter: none;
 .UsuarioLogado {
     display: inline-block;
     border: 1px solid #1a6bc4;
-    /* Borda azul */
     padding: 8px 16px;
     border-radius: 30px;
-    background-color: rgba(255, 255, 255, 0.9);
-    /* Fundo branco */
+    background-color: rgba(255,255,255,0.9);
     color: #1a6bc4;
-    /* Texto azul */
     font-weight: 500;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .sair-btn {
     background: linear-gradient(to right, #1a6bc4, #2980b9);
-    /* Gradiente azul */
     border: none;
     padding: 8px 16px;
     color: white;
@@ -76,12 +86,12 @@ backdrop-filter: none;
 
 .sair-btn:hover {
     background: linear-gradient(to right, #0d4d9c, #1a6bc4);
-    /* Gradiente azul mais escuro */
     transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(26, 107, 196, 0.3);
+    box-shadow: 0 4px 10px rgba(26,107,196,0.3);
 }
 
-/* Container para centralizar botões */
+/* ---------------- BUTTONS ---------------- */
+
 .button-container {
     display: flex;
     justify-content: center;
@@ -95,66 +105,60 @@ button {
     border: solid 1px #595959;
     padding: 5px 15px;
     border-radius: 5px;
-    background: #000000;
-    color: #ffffff;
+    background: #000;
+    color: #fff;
     font-size: 1rem;
-    align-items: center;
     font-weight: 500;
 }
 
 button:hover {
     transform: translateY(0.5px);
-    box-shadow: 0 6px 20px rgba(113, 113, 113, 0.4);
-    background-color: #ffffff;
-    color: #000000;
+    box-shadow: 0 6px 20px rgba(113,113,113,0.4);
+    background-color: #fff;
+    color: #000;
 }
+
+/* ---------------- TABLE ---------------- */
 
 table {
     width: 90%;
     margin: 30px auto;
-    /* Centraliza tabela */
     border-collapse: collapse;
     overflow: hidden;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 0 20px rgba(0,0,0,0.05);
     border-radius: 12px;
-    background: rgba(255, 255, 255, 0.85);
-    /* Fundo branco com transparência */
+    background: rgba(255,255,255,0.85);
 }
 
 table thead {
     background: linear-gradient(to right, #1a6bc4, #2980b9);
-    /* Gradiente azul */
-    color: #ffffff;
+    color: white;
     text-transform: uppercase;
-    font-size: 0.9rem;
 }
 
-table th,
-table td {
+table th, table td {
     padding: 15px;
     text-align: center;
     border-bottom: 1px solid #e2e8f0;
-    /* Linha cinza claro */
 }
 
 table tbody tr {
-    background-color: rgba(255, 255, 255, 0.7);
+    background-color: rgba(255,255,255,0.7);
 }
 
 table tbody tr:nth-child(even) {
-    background-color: rgba(248, 250, 252, 0.7);
-    /* Cinza muito claro */
+    background-color: rgba(248,250,252,0.7);
 }
 
 table tbody tr:hover {
-    background-color: rgba(237, 242, 247, 0.8);
-    /* Cinza azulado */
+    background-color: rgba(237,242,247,0.8);
 }
+
+/* ---------------- IMAGENS ---------------- */
 
 .img-container {
     display: flex;
     justify-content: center;
-    /* Centraliza imagens */
     margin: 30px 0;
 }
 
@@ -162,177 +166,131 @@ img {
     margin-top: 20px;
     max-width: 50%;
     border-radius: 15px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    transition: 0.3s;
+    background-color: rgba(255,255,255,0.5);
     padding: 5px;
 }
 
 img:hover {
     transform: scale(1.03);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
 }
 
-/* Elementos adicionais para melhor organização */
+/* ---------------- CARD ---------------- */
+
 .content-wrapper {
     max-width: 1200px;
     margin: 0 auto;
     padding: 30px;
-    width: 100%;
 }
 
 .card {
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(255,255,255,0.85);
     border-radius: 15px;
     padding: 30px;
     margin: 30px auto;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
     max-width: 800px;
     text-align: center;
 }
 
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #ffffff;
-}
+/* ---------------- NAV ---------------- */
 
 nav {
     padding: 5px;
-    height: auto;
     width: 100%;
-    align-content: center;
-    align-items: center;
-    flex-direction: column;
     background-color: #9C0720;
     font-size: 1rem;
-
-    ul {
-        list-style-type: none;
-        display: flex;
-        justify-content: flex-end;
-        gap: 10px;
-        align-items: center;
-
-        li {
-            padding: 10px;
-            margin: 0;
-
-            a {
-                text-decoration: none;
-                color: #ffffff;
-            }
-
-            :hover {
-                text-decoration: underline;
-            }
-        }
-    }
 }
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    align-items: center;
+}
+
+nav ul li {
+    padding: 10px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #fff;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* ---------------- LOGIN ---------------- */
 
 .login {
-    margin: auto 0;
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
     flex-direction: row;
-
-    main {
-        display: flex;
-        width: 300px;
-        background-color: #9C0720;
-        color: #ffffff;
-        padding: 20px 10px;
-        flex-wrap: wrap;
-        margin: 20px auto 0;
-        border-radius: 7px;
-        justify-content: center;
-
-        a {
-            text-decoration: none;
-        }
-
-
-        button {
-            display: flex;
-            justify-items: center;
-            align-self: center;
-        }
-
-
-
-        form {
-            padding: 10px;
-
-            input {
-                border: none;
-                border-radius: 5px;
-                height: 1.8rem;
-                width: 100%;
-                margin: 5px auto 7px;
-            }
-
-            select {
-                width: 100%;
-                border-radius: 5px;
-                height: 1.8rem;
-                margin-top: 10px;
-                margin-left: auto;
-                margin-right: auto;
-                align-self: center;
-                margin-bottom: 10px;
-            }
-
-            button {
-                margin: 5px auto 0;
-            }
-
-
-        }
-    }
-
 }
 
+.login main {
+    display: flex;
+    width: 300px;
+    background-color: #9C0720;
+    color: #fff;
+    padding: 20px 10px;
+    margin: 20px auto 0;
+    border-radius: 7px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
 
+.login main form {
+    padding: 10px;
+    width: 100%;
+}
+
+.login main form input,
+.login main form select {
+    border: none;
+    border-radius: 5px;
+    height: 1.8rem;
+    width: 100%;
+    margin: 5px auto 10px;
+}
+
+.login main form button {
+    margin: 5px auto 0;
+}
+
+/* ------------- FOOTER ----------- */
 
 footer {
     margin-top: auto;
     background: #9C0720;
-    color: #ffffff;
+    color: #fff;
     text-align: center;
     padding: 10px;
     font-size: 1rem;
 }
 
-/* Responsividade para dispositivos móveis */
+/* ---------------- RESPONSIVE ---------------- */
+
 @media (max-width: 768px) {
+
     .docente-container {
         position: static;
         justify-content: center;
         margin: 15px 0;
     }
 
-    .button-container {
-        flex-direction: column;
-        align-items: center;
-    }
-
     button {
         width: 100%;
         max-width: 300px;
     }
-
-    h1,
-    h2,
-    h3,
-    h4 {
-        max-width: 95%;
-        padding: 10px 15px;
-    }
 }
 
-/* //////////////// */
+/* ---------------- CARDS GRID ---------------- */
 
 #cards {
     display: grid;
@@ -342,24 +300,14 @@ footer {
     margin: 0 auto;
 }
 
-
 .info {
     display: flex;
     background: #FF9398;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     overflow: hidden;
-    height: 100%;
     margin: 20px;
-    
 }
-
-/* .card-imagem {
-    width: 40%;
-    object-fit: cover;
-    max-width: 170px;
-    margin: 10px;
-} */
 
 .card-conteudo {
     padding: 1.5rem;
@@ -368,26 +316,69 @@ footer {
 
 .card-titulo {
     font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-    color: #000000;
+    color: #000;
 }
 
 .card-descricao {
     color: #666;
-    line-height: 1.5;
 }
 
-@media (max-width: 768px) {
-    #cards {
-        flex-direction: column;
-    }
-    
-    .card-imagem {
-        width: 100%;
-        height: 200px;
-    }
+/* ----------- DOAR PET / FORMULÁRIOS ----------- */
 
-    .card-conteudo {
-        width: 100%;
-    }
+.container-doacao {
+    width: 95%;
+    max-width: 850px;
+    background: #ffffff;
+    padding: 30px;
+    margin: 50px auto;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+}
+
+.titulo-pagina {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 25px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 18px;
+}
+
+.campo label {
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.campo input,
+.campo select {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #cfcfcf;
+    background: #fff;
+    font-size: 1rem;
+}
+
+.botoes-centro {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 25px;
+}
+
+.btn-black {
+    background: #000;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-black:hover {
+    background: #333;
 }
