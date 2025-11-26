@@ -4,8 +4,6 @@
     box-sizing: border-box;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
-
-/* GARANTE QUE O BACKGROUND NÃO BLOQUEIE CLIQUES */
 body::before {
     content: "";
     position: fixed;
@@ -34,8 +32,6 @@ body.erro{
     backdrop-filter: none;
 }
 
-/* ----------------- BOX INDEX ----------------- */
-
 .box-index {
     font-size: 1.5rem;
     margin: auto;
@@ -48,8 +44,6 @@ body.erro{
 .box-index button {
     margin: 10px 0;
 }
-
-/* ---------------- USER LOGADO ---------------- */
 
 .docente-container {
     position: fixed;
@@ -90,8 +84,6 @@ body.erro{
     box-shadow: 0 4px 10px rgba(26,107,196,0.3);
 }
 
-/* ---------------- BUTTONS ---------------- */
-
 .button-container {
     display: flex;
     justify-content: center;
@@ -117,8 +109,6 @@ button:hover {
     background-color: #fff;
     color: #000;
 }
-
-/* ---------------- TABLE ---------------- */
 
 table {
     width: 90%;
@@ -154,8 +144,6 @@ table tbody tr:hover {
     background-color: rgba(237,242,247,0.8);
 }
 
-/* ---------------- IMAGENS ---------------- */
-
 .img-container {
     display: flex;
     justify-content: center;
@@ -177,8 +165,6 @@ img:hover {
     box-shadow: 0 12px 30px rgba(0,0,0,0.15);
 }
 
-/* ---------------- CARD ---------------- */
-
 .content-wrapper {
     max-width: 1200px;
     margin: 0 auto;
@@ -194,8 +180,6 @@ img:hover {
     max-width: 800px;
     text-align: center;
 }
-
-/* ---------------- NAV ---------------- */
 
 nav {
     padding: 5px;
@@ -224,8 +208,6 @@ nav ul li a {
 nav ul li a:hover {
     text-decoration: underline;
 }
-
-/* ---------------- LOGIN ---------------- */
 
 .login {
     display: flex;
@@ -263,7 +245,6 @@ nav ul li a:hover {
     margin: 5px auto 0;
 }
 
-/* ------------- FOOTER ----------- */
 
 footer {
     margin-top: auto;
@@ -274,7 +255,6 @@ footer {
     font-size: 1rem;
 }
 
-/* ---------------- RESPONSIVE ---------------- */
 
 @media (max-width: 768px) {
 
@@ -290,7 +270,6 @@ footer {
     }
 }
 
-/* ---------------- CARDS GRID ---------------- */
 
 #cards {
     display: grid;
@@ -322,8 +301,6 @@ footer {
 .card-descricao {
     color: #666;
 }
-
-/* ----------- DOAR PET / FORMULÁRIOS ----------- */
 
 .container-doacao {
     width: 95%;
@@ -382,3 +359,79 @@ footer {
 .btn-black:hover {
     background: #333;
 }
+
+body.doar-novamente {
+    background-image: url('/static/fundo.png') !important;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #FF9398 !important;
+    min-height: 100vh;
+}
+
+.doar-novamente .container {
+    text-align: center;
+    padding-top: 40px;
+}
+
+.doar-novamente h1 {
+    font-size: 2rem;
+    margin-bottom: 40px;
+    font-weight: bold;
+    color: #000;
+    background: rgba(255,255,255,0.5);
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px 25px;
+    border-radius: 10px;
+}
+
+.doar-novamente .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    width: 90%;
+    max-width: 900px;
+    margin: auto;
+}
+
+.doar-novamente .card {
+    text-decoration: none !important;
+    background: rgba(255,255,255,0.8);
+    padding: 25px;
+    border-radius: 15px;
+    color: #000;
+    font-weight: bold;
+    font-size: 1.4rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: 0.2s;
+    border: 2px solid #fff;
+    display: block;
+    text-align: center;
+}
+
+.doar-novamente .card:hover {
+    transform: scale(1.03);
+    background: #fff;
+    border-color: #000;
+}
+
+/* Botão voltar */
+.doar-novamente .voltar {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 10px 20px;
+    background: #000;
+    color: #fff !important;
+    border-radius: 10px;
+    text-decoration: none !important;
+    transition: 0.2s;
+}
+
+.doar-novamente .voltar:hover {
+    background: #fff;
+    color: #000 !important;
+    border: 1px solid #000;
+}
+

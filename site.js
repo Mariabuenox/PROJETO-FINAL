@@ -8,7 +8,7 @@ const port = 8000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Conexão com o BD
+
 const db = new sqlite3.Database("campanhas.db");
 db.serialize(() => {
     db.run("CREATE TABLE IF NOT EXISTS cadastro ( id INTEGER PRIMARY KEY AUTOINCREMENT, nome_completo TEXT, email TEXT,senha TEXT,confirmar_senha TEXT, tipo TEXT)" );
@@ -150,7 +150,6 @@ app.get("/ranking", (req, res) => {
 });
 
 
-// Demais rotas
 app.get("/confirmar", (req, res) => {
     res.render("pages/confirmar", { titulo: "CONFIRMAÇÃO", req });
 });
@@ -160,7 +159,6 @@ app.get("/info", (req, res) => {
     res.render("pages/info", {req});
 });
 
-// ------------------ ALIMENTOS ------------------
 app.get("/doar_alimento", autenticado, (req, res) => {
     res.render("pages/doar_alimento", {req});
 });
@@ -176,7 +174,6 @@ app.post("/doar_alimento", autenticado, (req, res) => {
     );
 });
 
-// ------------------ PET ------------------
 app.get("/doar_pet", autenticado, (req, res) => {
     res.render("pages/doar_pet", {req});
 });
@@ -192,7 +189,6 @@ app.post("/doar_pet", autenticado, (req, res) => {
     );
 });
 
-// ------------------ AGASALHO ------------------
 app.get("/doar_agasalho", autenticado, (req, res) => {
     res.render("pages/doar_agasalho", {req});
 });
@@ -208,7 +204,6 @@ app.post("/doar_agasalho", autenticado, (req, res) => {
     );
 });
 
-// ------------------ BRINQUEDO ------------------
 app.get("/doar_brinquedo", autenticado, (req, res) => {
     res.render("pages/doar_brinquedo", {req});
 });
@@ -228,6 +223,13 @@ app.get("/agradecimento", (req, res) => {
     console.log("GET /agradecimento")
     res.render("pages/agradecimento", {req});
 });
+
+app.get("/doar_novamente", (req, res) => {
+    console.log("GET /doar_novamente")
+    res.render("pages/doar_novamente", { req });
+});
+
+
 app.get("/post-create", (req, res) => {
     console.log("GET /post-create");
     //verificar se o usuário está logado
@@ -287,9 +289,14 @@ app.get("/post-tabela", (req, res) => {
 
 
 // Rota de erro 404
-app.use('/{*erro}', (req, res) => {
-    res.status(404).render('pages/erro', { titulo: "ERRO 404", req, msg: "404" });
+app.use((req, res) => {
+    res.status(404).render("pages/erro", { 
+        titulo: "ERRO 404", 
+        req, 
+        msg: "404" 
+    });
 });
+
 
 // Inicializa o servidor
 app.listen(port, () => {
