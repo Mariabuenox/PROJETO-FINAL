@@ -147,7 +147,7 @@ table {
     tbody tr {
         background-color: #FF9398;
 
-        :hover {
+        td:hover {
             background-color: #fe787f;
         }
     }

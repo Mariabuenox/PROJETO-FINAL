@@ -9,12 +9,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Conexão com o BD
+
 const db = new sqlite3.Database("campanhas.db");
 db.serialize(() => {
-    db.run("CREATE TABLE IF NOT EXISTS cadastro ( id INTEGER PRIMARY KEY AUTOINCREMENT, nome_completo TEXT, email TEXT,senha TEXT,confirmar_senha TEXT, tipo TEXT)"
-    );
-    db.run("CREATE TABLE IF NOT EXISTS doar ( id INTEGER PRIMARY KEY AUTOINCREMENT, doacao TEXT, item TEXT, quantidade INT, data DATE, aluno TEXT, codigo_sala TEXT,docente TEXT,pontuacao_final INT, id_usuario INT)"
-    );
+    db.run("CREATE TABLE IF NOT EXISTS cadastro ( id INTEGER PRIMARY KEY AUTOINCREMENT, nome_completo TEXT, email TEXT,senha TEXT,confirmar_senha TEXT, tipo TEXT)" );
+    db.run("CREATE TABLE IF NOT EXISTS doar_alimento (item INT, quantidade INT, data DATE, codigo_sala TEXT, docente TEXT, pontuacao_total INT)");
+    db.run("CREATE TABLE IF NOT EXISTS doar_pet (item INT, quantidade INT, data DATE, codigo_sala TEXT, docente TEXT, pontuacao_total INT)");
+    db.run("CREATE TABLE IF NOT EXISTS doar_agasalho (item INT, quantidade INT, data DATE, codigo_sala TEXT, docente TEXT, pontuacao_total INT)");
+    db.run("CREATE TABLE IF NOT EXISTS doar_brinquedo (item INT, quantidade INT, data DATE, codigo_sala TEXT, docente TEXT, pontuacao_total INT)");
+
 });
 
 // Configuração
@@ -96,29 +99,156 @@ app.post("/login", (req, res) => {
     })
 })
 
+
+
+
+
+
+
 // Rota do ranking (visível apenas para docentes logados)
 app.get("/ranking", (req, res) => {
-        console.log("GET/ ranking")
-        const query = `
-            SELECT codigo_sala, 
-                   doacao, 
-                   item,
-                   aluno,
-                   SUM(item * quantidade) AS pontuacao_total,
-                   SUM(quantidade) AS total_itens,
-                   MAX(data) AS data_recente,
-                   MAX(docente) AS docente
-            FROM doar
-            GROUP BY codigo_sala
-            ORDER BY pontuacao_total DESC
-        `;
-    db.all(query, [], (err, row) => {
-        if (err) throw err;
-        console.log(JSON.stringify(row));
-        res.render("pages/ranking", { titulo: "Tabela de Doações", dados: row, req: req });
-    });
+    console.log("GET /ranking");
 
+    const query = `
+        SELECT 
+            codigo_sala,
+            SUM(COALESCE(pontuacao_total, 0)) AS pontuacao
+        FROM (
+            SELECT codigo_sala, pontuacao_total FROM doar_alimento
+            UNION ALL
+            SELECT codigo_sala, pontuacao_total FROM doar_pet
+            UNION ALL
+            SELECT codigo_sala, pontuacao_total FROM doar_agasalho
+            UNION ALL
+            SELECT codigo_sala, pontuacao_total FROM doar_brinquedo
+        )
+        GROUP BY codigo_sala
+        ORDER BY pontuacao DESC;
+    `;
+
+    db.all(query, [], (err, rows) => {
+        if (err) {
+            console.error("Erro no ranking:", err);
+            return res.status(500).render("pages/ranking", {
+                titulo: "Ranking das Turmas",
+                dados: [],
+                erro: "Erro ao consultar ranking",
+                req
+            });
+        }
+
+        console.log("RANKING:", rows);
+
+        res.render("pages/ranking", {
+            titulo: "Ranking das Turmas",
+            dados: rows,
+            req
+        });
+    });
 });
+
+//
+
+app.get("/doar_agasalho", (req, res) => {
+    if (!req.session.id_usuario) {
+        return res.redirect("/confirmar");
+    }
+    res.render("pages/doar_agasalho", { req: req });
+});
+
+app.post("/doar_agasalho", (req, res) => {
+    console.log("POST/ doar_agasalho")
+    const {  doacao, item, quantidade, data, aluno, codigo_sala, docente } = req.body;
+    const id_usuario = req.session.id_usuario;
+    const pontuacao_total = item * quantidade;
+
+    const query = `
+        INSERT INTO doar_agasalho (doacao, item, quantidade, data, aluno, codigo_sala, docente, id_usuario, pontuacao_total)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+    db.run(query, [doacao, item, quantidade, data, aluno, codigo_sala, docente, id_usuario, pontuacao_total], function (err) {
+        if (err) throw err;
+        res.redirect("/agradecimento");
+    });
+});
+
+//
+
+app.get("/doar_alimento", (req, res) => {
+    if (!req.session.id_usuario) {
+        return res.redirect("/confirmar");
+    }
+    res.render("pages/doar_alimento", { req: req });
+});
+
+app.post("/doar_alimento", (req, res) => {
+    console.log("POST/ doar_alimento")
+    const {  doacao, item, quantidade, data, aluno, codigo_sala, docente } = req.body;
+    const id_usuario = req.session.id_usuario;
+    const pontuacao_total = item * quantidade;
+
+    const query = `
+        INSERT INTO doar_alimento (doacao, item, quantidade, data, aluno, codigo_sala, docente, id_usuario, pontuacao_total)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+    db.run(query, [doacao, item, quantidade, data, aluno, codigo_sala, docente, id_usuario, pontuacao_total], function (err) {
+        if (err) throw err;
+        res.redirect("/agradecimento");
+    });
+});
+
+//
+
+app.get("/doar_pet", (req, res) => {
+    if (!req.session.id_usuario) {
+        return res.redirect("/confirmar");
+    }
+    res.render("pages/doar_pet", { req: req });
+});
+
+app.post("/doar_pet", (req, res) => {
+    console.log("POST/ doar_pet")
+    const {  doacao, item, quantidade, data, aluno, codigo_sala, docente } = req.body;
+    const id_usuario = req.session.id_usuario;
+    const pontuacao_total = item * quantidade;
+
+    const query = `
+        INSERT INTO doar_pet (doacao, item, quantidade, data, aluno, codigo_sala, docente, id_usuario, pontuacao_total)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+    db.run(query, [doacao, item, quantidade, data, aluno, codigo_sala, docente, id_usuario, pontuacao_total], function (err) {
+        if (err) throw err;
+        res.redirect("/agradecimento");
+    });
+});
+
+//
+
+app.get("/doar_brinquedo", (req, res) => {
+    if (!req.session.id_usuario) {
+        return res.redirect("/confirmar");
+    }
+    res.render("pages/doar_brinquedo", { req: req });
+});
+
+app.post("/doar_brinquedo", (req, res) => {
+    console.log("POST/ doar_brinquedo")
+    const {  doacao, item, quantidade, data, aluno, codigo_sala, docente } = req.body;
+    const id_usuario = req.session.id_usuario;
+    const pontuacao_total = item * quantidade;
+
+    const query = `
+        INSERT INTO doar_brinquedo (doacao, item, quantidade, data, aluno, codigo_sala, docente, id_usuario, pontuacao_total)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+    db.run(query, [doacao, item, quantidade, data, aluno, codigo_sala, docente, id_usuario, pontuacao_total], function (err) {
+        if (err) throw err;
+        res.redirect("/agradecimento");
+    });
+});
+
+
+
 
 // Demais rotas
 app.get("/confirmar", (req, res) => {
@@ -130,32 +260,13 @@ app.get("/info", (req, res) => {
     res.render("pages/info", {req});
 });
 
-app.get("/doar_agasalho", (req, res) => {
-    if (!req.session.id_usuario) {
-        return res.redirect("/confirmar");
-    }
-    res.render("pages/doar_agasalho", { req: req });
-});
 
-app.post("/doar_agasalho", (req, res) => {
-    const {  doacao, item, quantidade, data, aluno, codigo_sala, docente } = req.body;
-    const id_usuario = req.session.id_usuario;
-    const pontuacao_final = item * quantidade;
-
-    const query = `
-        INSERT INTO doar (doacao, item, quantidade, data, aluno, codigo_sala, docente, id_usuario, pontuacao_final)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `;
-    db.run(query, [doacao, item, quantidade, data, aluno, codigo_sala, docente, id_usuario, pontuacao_final], function (err) {
-        if (err) throw err;
-        res.redirect("/agradecimento");
-    });
-});
 
 app.get("/agradecimento", (req, res) => {
     console.log("GET /agradecimento")
     res.render("pages/agradecimento", {req});
 });
+
 app.get("/post-create", (req, res) => {
     console.log("GET /post-create");
     //verificar se o usuário está logado
@@ -180,7 +291,7 @@ app.post("/post-create", (req, res) => {
         const data = data_criacao.toLocaleDateString();
         console.log("Data da criação:", data, "Username: ", req.session.username, "id_usuario: ", req.session.id_usuario);
 
-    const query = "INSERT INTO posts (item_doado, quantidade, data, codigo_sala, docente, id_usuario, pontuacao_final) VALUES (?, ?, ?, ?, ?, ?,?)"
+    const query = "INSERT INTO posts (item_doado, quantidade, data, codigo_sala, docente, id_usuario, pontuacao_total) VALUES (?, ?, ?, ?, ?, ?,?)"
 
         db.get(query, [req.session.id_usuario, item_doado, quantidade, data], (err) => {
             if (err) throw err;
