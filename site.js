@@ -43,10 +43,16 @@ function autenticado(req, res, next) {
 
 // Rota inicial
 app.get("/", (req, res) => {
-    const nome = req.session.UsuarioLogado;
-    res.render("pages/index", { nome, req});
-    console.log("Nome da Sessão:", req.session.UsuarioLogado);
+    const nome = req.session?.UsuarioLogado || null;
+
+    res.render("pages/index", { 
+        nome, 
+        req 
+    });
+
+    console.log("Nome da Sessão:", req.session?.UsuarioLogado);
 });
+
 
 app.get("/cadastro", (req, res) => {
     res.render("pages/cadastro", {req});
@@ -231,62 +237,78 @@ app.get("/doar_novamente", (req, res) => {
 
 
 app.get("/post-create", (req, res) => {
-    console.log("GET /post-create");
-    //verificar se o usuário está logado
-    //se estiver logado, envie o formulário para a criação do post
-    if (req.session.loggedin) {
-        res.render("pages/post-create", { titulo: "Criar postagem", req: req })
-    } else {  // se não estiver logado, redirect para /nao-autorizado
-        res.redirect("/erro")
+    if (!req.session.loggedin) {
+        return res.redirect("/erro");
     }
-
+    res.render("pages/post-create", { req });
 });
+
 
 app.post("/post-create", (req, res) => {
     console.log("POST /post-create");
-    //Pegar dados da postagem: UserID, Titulo Postagem, Conteúdo da postagem, Data da postagem
 
-    //req.session.username, req.session.id_username
-    if (req.session.loggedin) {
-        console.log("Dados da postagem: ", req.body);
-        const { titulo, conteudo } = req.body;
-        const data_criacao = new Date();
-        const data = data_criacao.toLocaleDateString();
-        console.log("Data da criação:", data, "Username: ", req.session.username, "id_usuario: ", req.session.id_usuario);
-
-    const query = "INSERT INTO posts (item_doado, quantidade, data, codigo_sala, docente, id_usuario, pontuacao_final) VALUES (?, ?, ?, ?, ?, ?,?)"
-
-        db.get(query, [req.session.id_usuario, item_doado, quantidade, data], (err) => {
-            if (err) throw err;
-            res.redirect('/post-tabela');
-        })
-
-    } else {
-        res.redirect("/erro");
+    if (!req.session.loggedin) {
+        return res.redirect("/erro");
     }
-})
+
+    const { item_doado, quantidade, codigo_sala, docente } = req.body;
+
+    const pontuacao_final = Number(item_doado) * Number(quantidade);
+
+    const data_criacao = new Date().toLocaleDateString("pt-BR");
+
+    const query = `
+        INSERT INTO posts 
+        (item_doado, quantidade, data, codigo_sala, docente, id_usuario, pontuacao_final)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+    `;
+
+    db.run(
+        query,
+        [
+            item_doado,
+            quantidade,
+            data_criacao,
+            codigo_sala,
+            docente,
+            req.session.id_usuario,
+            pontuacao_final
+        ],
+        function(err) {
+            if (err) {
+                console.error("Erro ao inserir post:", err);
+                return res.redirect("/erro");
+            }
+            res.redirect("/post-tabela");
+        }
+    );
+});
+
 
 app.get("/logout", (req, res) => {
     req.session.destroy((err) => {
         if (err) {
+            console.log("Erro ao destruir sessão:", err);
             return res.redirect("/");
         }
-        res.redirect("/");
-    })
+        res.clearCookie("connect.sid");
+        res.redirect("/login?mensagem=Você saiu da conta");
+    });
 });
+
 
 app.get("/post-tabela", (req, res) => {
-    console.log("GET /post-tabela")
     const query = "SELECT * FROM posts";
-    db.all(query, [], (err, row) => {
+    db.all(query, [], (err, rows) => {
         if (err) throw err;
-        console.log(JSON.stringify(row));
-        res.render("pages/post-tabela", { titulo: "TABELA DE DOAÇÃO", dados: row, req: res });
 
-    })
-
+        res.render("pages/post-tabela", { 
+            titulo: "TABELA DE DOAÇÃO", 
+            dados: rows, 
+            req 
+        });
+    });
 });
-
 
 // Rota de erro 404
 app.use((req, res) => {
