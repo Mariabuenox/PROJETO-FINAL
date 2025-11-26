@@ -130,11 +130,11 @@ app.get("/info", (req, res) => {
     res.render("pages/info", {req});
 });
 
-app.get("/doar", (req, res) => {
+app.get("/doar_agasalho", (req, res) => {
     if (!req.session.id_usuario) {
         return res.redirect("/confirmar");
     }
-    res.render("pages/doar", { req: req });
+    res.render("pages/doar_agasalho", { req: req });
 });
 
 app.post("/doar_agasalho", (req, res) => {
