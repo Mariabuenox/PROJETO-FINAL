@@ -1,26 +1,29 @@
 <%- include("../partials/head") %>
-
 <%- include("../partials/menu") %>
 
 <div class="login">
-
   <div class="box-index">
-    <h1>Ja tem uma conta?</h1>
+    <h1>Já tem uma conta?</h1>
   </div>
 
   <main>
-    <h1>login</h1>
+    <h1>Login</h1>
+
+    <% if (mensagem) { %>
+      <p style="color:red;"><%= mensagem %></p>
+    <% } %>
+
     <form action="/login" method="POST" class="formItens">
-      <Label>Email:</Label>
+      <label>Email:</label>
       <input type="email" name="email" required>
-      <Label>Senha:</Label>
+
+      <label>Senha:</label>
       <input type="password" name="senha" required>
+
       <button type="submit">Entrar</button>
     </form>
   </main>
 </div>
 
-
 <%- include("../partials/footer") %>
-
 </html>

@@ -494,7 +494,31 @@ app.post("/enviar-doacao", autenticado, (req, res) => {
 });
 
 
-// Rota de erro 404
+app.post("/excluir-conta", (req, res) => {
+    if (!req.session.loggedin) {
+        return res.redirect("/login?mensagem=Faça login para continuar");
+    }
+
+    const id = req.session.id_usuario;
+
+    db.run("DELETE FROM cadastro WHERE id = ?", [id], (err) => {
+        if (err) {
+            console.error(err);
+            return res.send("Erro ao excluir conta");
+        }
+
+        req.session.destroy((err) => {
+            if (err) {
+                console.log("Erro ao destruir sessão:", err);
+                return res.redirect("/login");
+            }
+
+            res.clearCookie("connect.sid");
+            return res.redirect("/login?mensagem=Conta excluída com sucesso");
+        });
+    });
+});
+
 app.use((req, res) => {
     res.status(404).render("pages/erro", { 
         titulo: "ERRO 404", 
@@ -502,10 +526,3 @@ app.use((req, res) => {
         msg: "404" 
     });
 });
-
-
-// Inicializa o servidor
-app.listen(port, () => {
-    console.log(`Servidor rodando em http://localhost:${port}`);
-});
-
