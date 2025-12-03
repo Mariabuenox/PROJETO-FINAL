@@ -1,12 +1,43 @@
 <%- include("../partials/head") %>
 
 <body>
+  <div class="page-box">
+    <h1><%= titulo %></h1>
+
     <main>
-      <%- include("../partials/usertable"); %>
+      <% if (typeof erro !== 'undefined') { %>
+        <p style="color: #b00020; text-align:center;"><%= erro %></p>
+      <% } %>
+
+      <table class="ranking-table">
+        <thead>
+          <tr>
+            <th>Posição</th>
+            <th>Turma</th>
+            <th>Pontuação Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (!dados || dados.length === 0) { %>
+            <tr>
+              <td colspan="3" style="text-align:center;">Nenhuma doação registrada ainda.</td>
+            </tr>
+          <% } else { %>
+            <% dados.forEach((turma, index) => { %>
+              <tr>
+                <td><%= index + 1 %>º</td>
+                <td><%= turma.codigo_sala %></td>
+                <td><%= turma.pontuacao %></td>
+              </tr>
+            <% }) %>
+          <% } %>
+        </tbody>
+      </table>
     </main>
-    <a href="/"><button type="submit">Voltar ao início</button></a>
 
-      <%- include("../partials/footer") %>
+    <a href="/"><button>Voltar ao início</button></a>
+  </div>
+
+  <%- include("../partials/footer") %>
 </body>
-
 </html>

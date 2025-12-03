@@ -4,14 +4,14 @@
 
 <body>
 
-  <% if (nome) { %>
-  <div class="docente">
-    <p style="color:#070707; " class="Docente Logado">
-      <%= nome_completo %>
+  <!-- <%# if (UsuarioLogado) { %>
+  <div class="UsuarioLogado">
+    <p style="color:#070707; " class="UsuarioLogado">
+      <%#= nome_completo %>
     </p>
-    <a href="/logout"><button type="submit">SAIR</button></a>
+    <a href="/logout"> <button type="submit">SAIR</button></a>
   </div>
-  <% } %>
+  <%# } %> -->
 
   <% if (!req.session.loggedin) { %>
 
@@ -26,37 +26,40 @@
 
   <section id="#cards">
     <div class="info">
-      <!-- <img src="./imagens/cinza.png" alt="Imagem 2" class="card-imagem"> -->
+      <!-- <img src="./static/scarroz.png" alt="Imagem 2" class="card-imagem"> -->
       <div class="card-conteudo">
-        <h2 class="card-titulo">Card</h2>
-        <p class="card-descricao">Segundo card com estrutura idêntica mas conteúdo diferente.</p>
+        <a href="/doar_alimento"><h2 class="card-titulo">Alimentos</h2></a>
+        <p class="card-descricao">Ajude a combater a fome doando alimentos não perecíveis. Sua contribuição faz a diferença na vida de famílias que precisam. Doe com carinho e transforme vidas!.</p>
       </div>
     </div>
 
     <div class="info">
       <!-- <img src="./imagens/cinza.png" alt="Imagem 2" class="card-imagem"> -->
       <div class="card-conteudo">
-        <h2 class="card-titulo">Card</h2>
-        <p class="card-descricao">Segundo card com estrutura idêntica mas conteúdo diferente.</p>
+        <a href="/doar_pet"><h2 class="card-titulo">Ração</h2></a>
+        <p class="card-descricao">Contribua com a alimentação dos animais que dependem de nós. Doe ração e ajude a garantir cuidado e sustento para cães, gatos e outros pets em situação de vulnerabilidade.</p>
       </div>
     </div>
+
+    
+      <div class="info">
+        <!-- <img src="./static/agasalho.png" alt="Imagem 2" class="card-imagem"> -->
+        <div class="card-conteudo">
+          <a href="/doar_agasalho"><h2 class="card-titulo">Agasalho</h2></a>
+          <p class="card-descricao">Doe agasalhos e aqueça quem mais precisa neste inverno. Sua solidariedade ajuda a proteger pessoas em situação de vulnerabilidade contra o frio.</p>
+        </div>
+      </div>
+
 
     <div class="info">
       <!-- <img src="./imagens/cinza.png" alt="Imagem 2" class="card-imagem"> -->
       <div class="card-conteudo">
-        <h2 class="card-titulo">Card</h2>
-        <p class="card-descricao">Segundo card com estrutura idêntica mas conteúdo diferente.</p>
-      </div>
-    </div>
-
-    <div class="info">
-      <!-- <img src="./imagens/cinza.png" alt="Imagem 2" class="card-imagem"> -->
-      <div class="card-conteudo">
-        <h2 class="card-titulo">Card</h2>
-        <p class="card-descricao">Segundo card com estrutura idêntica mas conteúdo diferente.</p>
+        <a href="/doar_brinquedo"><h2 class="card-titulo">Brinquedos</h2></a>
+        <p class="card-descricao">Leve alegria e esperança para crianças que precisam. Doe brinquedos e ajude a transformar momentos simples em grandes sorrisos.</p>
       </div>
     </div>
   </section>
+
 
   <% } %>
 
