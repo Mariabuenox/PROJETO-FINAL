@@ -1,29 +1,36 @@
 <%- include("../partials/head") %>
 
-<h1 class="titulo-index">Campanhas Ativas</h1>
+<div class="container-doacao">
+    <h1 class="titulo-pagina">Editar Campanha</h1>
 
-<a href="/"><button>Voltar para o início</button></a>
+    <form action="/editar-campanha/<%= campanha.id %>" method="POST">
 
-<br><br>
-
-<div>
-    <% if (campanhas.length === 0) { %>
-        <p>Nenhuma campanha cadastrada ainda.</p>
-    <% } %>
-
-    <% campanhas.forEach(c => { %>
-        <div class="card">
-            <h2><%= c.nome %></h2>
-            <p><%= c.descricao %></p>
-            <p><strong>Início:</strong> <%= c.data_inicio %></p>
-            <p><strong>Fim:</strong> <%= c.data_fim %></p>
-
-            <a href="/doar-campanha/<%= c.id %>">
-                <button>Doar</button>
-            </a>
+        <div class="campo">
+            <label>Nome:</label>
+            <input type="text" name="nome" value="<%= campanha.nome %>" required>
         </div>
-        <br>
-    <% }) %>
+
+        <div class="campo">
+            <label>Descrição:</label>
+            <input type="text" name="descricao" value="<%= campanha.descricao %>" required>
+        </div>
+
+        <div class="campo">
+            <label>Data início:</label>
+            <input type="date" name="data_inicio" value="<%= campanha.data_inicio %>" required>
+        </div>
+
+        <div class="campo">
+            <label>Data fim:</label>
+            <input type="date" name="data_fim" value="<%= campanha.data_fim %>" required>
+        </div>
+
+        <div class="botoes-centro">
+            <button type="submit" class="btn-black">Salvar</button>
+            <a href="/campanhas" class="btn-black">Cancelar</a>
+        </div>
+
+    </form>
 </div>
 
 <%- include("../partials/footer") %>

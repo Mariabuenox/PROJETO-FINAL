@@ -17,7 +17,17 @@ db.serialize(() => {
     db.run("CREATE TABLE IF NOT EXISTS doar_agasalho (item INT, quantidade INT, data DATE, codigo_sala TEXT, docente TEXT, pontuacao_total INT)");
     db.run("CREATE TABLE IF NOT EXISTS doar_brinquedo (item INT, quantidade INT, data DATE, codigo_sala TEXT, docente TEXT, pontuacao_total INT)");
     db.run("CREATE TABLE IF NOT EXISTS campanhas ( id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT, descricao TEXT, data_inicio TEXT, data_fim TEXT)");
-    db.run(` CREATE TABLE IF NOT EXISTS doacoes (id INTEGER PRIMARY KEY AUTOINCREMENT, id_campanha INT,  item TEXT, quantidade INT  ) `);
+    db.run(`CREATE TABLE IF NOT EXISTS doacoes (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id_campanha INTEGER NOT NULL,
+        item_doado TEXT NOT NULL,
+        quantidade INTEGER NOT NULL,
+        docente TEXT NOT NULL,
+        codigo_sala TEXT NOT NULL,
+        pontuacao_final INTEGER NOT NULL,
+        data TEXT NOT NULL,
+        FOREIGN KEY (id_campanha) REFERENCES campanhas(id)
+    )`);    
 });
 
 // Configuração
@@ -368,130 +378,95 @@ app.get("/tabela_brinquedo", autenticado, (req, res) => {
     });
 });
 
-app.get("/criar-campanha", autenticado, (req, res) => {
+app.get("/campanhas", autenticado, (req, res)=>{
+    db.all("SELECT * FROM campanhas", [], (err, rows)=>{
+        if(err){
+            console.error(err);
+            return res.send("Erro ao carregar campanhas");
+        }
+        res.render("pages/listar-campanhas", { campanhas: rows, req });
+    });
+});
+
+app.get("/criar-campanha", autenticado, (req, res)=>{
     res.render("pages/criar-campanha", { req });
 });
 
-app.post("/criar-campanha", autenticado, (req, res) => {
+app.post("/criar-campanha", autenticado, (req, res)=>{
     const { nome, descricao, data_inicio, data_fim } = req.body;
 
     db.run(
         "INSERT INTO campanhas (nome, descricao, data_inicio, data_fim) VALUES (?, ?, ?, ?)",
         [nome, descricao, data_inicio, data_fim],
-        (err) => {
-            if (err) {
-                console.error(err);
-                return res.send("Erro ao criar campanha");
-            }
-            res.redirect("/criar-campanha?sucesso=1");
-        }
-    );
-});
-
-app.get("/campanhas", autenticado, (req, res) => {
-    db.all("SELECT * FROM campanhas ORDER BY id DESC", [], (err, rows) => {
-        if (err) {
-            console.error(err);
-            return res.send("Erro ao listar campanhas");
-        }
-
-        res.render("pages/campanhas", {
-            campanhas: rows,
-            req
-        });
-    });
-});
-
-app.get("/campanhas/delete/:id", autenticado, (req, res) => {
-    const id = req.params.id;
-
-    db.run("DELETE FROM campanhas WHERE id = ?", [id], (err) => {
-        if (err) {
-            console.error(err);
-        }
-
-        res.redirect("/campanhas");
-    });
-});
-
-app.get("/campanhas/edit/:id", autenticado, (req, res) => {
-    db.get("SELECT * FROM campanhas WHERE id = ?", [req.params.id], (err, row) => {
-        if (err || !row) {
-            console.error(err);
-            return res.redirect("/campanhas");
-        }
-
-        res.render("pages/editar-campanha", {
-            campanha: row,
-            req
-        });
-    });
-});
-
-app.post("/campanhas/edit/:id", autenticado, (req, res) => {
-    const { nome, descricao, data_inicio, data_fim } = req.body;
-
-    if (!nome || !descricao || !data_inicio || !data_fim) {
-        return res.redirect(`/campanhas/edit/${req.params.id}?erro=1`);
-    }
-
-    db.run(
-        "UPDATE campanhas SET nome = ?, descricao = ?, data_inicio = ?, data_fim = ? WHERE id = ?",
-        [nome, descricao, data_inicio, data_fim, req.params.id],
-        (err) => {
-            if (err) {
-                console.error(err);
-                return res.send("Erro ao atualizar campanha");
-            }
+        err=>{
+            if(err) return res.send("Erro ao criar campanha");
             res.redirect("/campanhas");
         }
     );
 });
 
-app.get("/doar-campanha/:id", autenticado, (req, res) => {
+app.get('/editar/:id', (req, res) => {
     const id = req.params.id;
 
-    db.get("SELECT * FROM campanhas WHERE id = ?", [id], (err, campanha) => {
-        if (err || !campanha) {
+    db.get("SELECT * FROM campanhas WHERE id = ?", [id], (err, row) => {
+        if (err) {
             console.error(err);
-            return res.send("Campanha não encontrada");
+            return res.send("Erro ao carregar campanha.");
         }
 
-        res.render("pages/doar-campanha", { req, campanha });
+        if (!row) return res.send("Campanha não encontrada!");
+
+        res.render("editar", { campanha: row }); // página editar.ejs
     });
 });
 
-app.post("/enviar-doacao", autenticado, (req, res) => {
-    const { id_campanha, item, quantidade } = req.body;
+app.post('/editar/:id', (req, res) => {
+    const { nome, descricao, data_final } = req.body;
+    const id = req.params.id;
 
-    db.run(
-        "INSERT INTO doacoes (id_campanha, item, quantidade) VALUES (?, ?, ?)",
-        [id_campanha, item, quantidade],
-        (err) => {
+    db.run("UPDATE campanhas SET nome = ?, descricao = ?, data_final = ? WHERE id = ?",
+        [nome, descricao, data_final, id],
+        err => {
             if (err) {
                 console.error(err);
-                return res.send("Erro ao enviar doação");
+                return res.send("Erro ao salvar edição.");
             }
-            res.redirect("/campanhas?doacao=ok");
+
+            res.redirect("/campanhas");
         }
     );
 });
 
-app.post("/enviar-doacao", autenticado, (req, res) => {
-    const { id_campanha, item, quantidade } = req.body;
+app.get("/excluir-campanha/:id", autenticado, (req, res)=>{
+    db.run("DELETE FROM campanhas WHERE id=?", [req.params.id], err=>{
+        if(err) return res.send("Erro ao excluir campanha");
+        res.redirect("/campanhas");
+    });
+});
+
+app.get("/doar/editar/:id", autenticado, (req, res) => {
+    db.get("SELECT * FROM doacoes WHERE id=?", [req.params.id], (err, doacao) => {
+        if (err || !doacao) return res.send("Doação não encontrada");
+
+        res.render("pages/editar-doacao", { doacao });
+    });
+});
+
+
+app.post("/doar/editar/:id", autenticado, (req, res) => {
+    const { item_doado, quantidade, docente, codigo_sala, pontuacao_final } = req.body;
 
     db.run(
-        "INSERT INTO doacoes (id_campanha, item, quantidade) VALUES (?, ?, ?)",
-        [id_campanha, item, quantidade],
-        (err) => {
-            if (err) {
-                console.error(err);
-                return res.send("Erro ao enviar doação");
-            }
-            res.redirect("/campanhas?mensagem=Doação enviada");
+        "UPDATE doacoes SET item_doado=?, quantidade=?, docente=?, codigo_sala=?, pontuacao_final=? WHERE id=?",
+        [item_doado, quantidade, docente, codigo_sala, pontuacao_final, req.params.id],
+        err => {
+            if (err) return res.send("Erro ao atualizar doação");
+            res.redirect("/doacoes"); // página onde lista as doações
         }
     );
 });
+
+
 
 
 // Rota de erro 404

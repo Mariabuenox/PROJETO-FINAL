@@ -1,0 +1,31 @@
+<%- include("../partials/head") %>
+
+<h1 class="titulo-index">Doar para: <%= campanha.nome %></h1>
+
+<a href="/campanhas"><button>Voltar</button></a>
+
+<% if (ok) { %>
+    <p style="color: green;">Doação registrada com sucesso!</p>
+<% } %>
+    
+<form method="POST" action="/doar/<%= campanha.id %>">
+    <label>Item doado:</label>
+    <input type="text" name="item_doado" required>
+
+    <label>Quantidade:</label>
+    <input type="number" name="quantidade" required>
+
+    <label>Docente responsável:</label>
+    <input type="text" name="docente" required>
+
+    <label>Código da Sala:</label>
+    <input type="text" name="codigo_sala" required>
+
+    <button type="submit">Registrar doação</button>
+
+    <% if (ok) { %>
+        <p style="color: green;">Doação registrada com sucesso!</p>
+    <% } %>
+</form>
+
+<%- include("../partials/footer") %>
