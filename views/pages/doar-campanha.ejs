@@ -1,0 +1,21 @@
+<%- include("../partials/head") %>
+
+<h1 class="titulo-index">Doar para <%= campanha.nome %></h1>
+
+<a href="/campanhas"><button>Voltar</button></a>
+
+<br><br>
+
+<form action="/enviar-doacao" method="POST">
+    <input type="hidden" name="id_campanha" value="<%= campanha.id %>">
+
+    <label>Item:</label>
+    <input type="text" name="item" required>
+
+    <label>Quantidade:</label>
+    <input type="number" name="quantidade" required>
+
+    <button type="submit">Enviar Doação</button>
+</form>
+
+<%- include("../partials/footer") %>

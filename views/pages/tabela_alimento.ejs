@@ -1,0 +1,27 @@
+<%- include('../partials/head') %>
+
+<h1><%= titulo %></h1>
+
+<table border="1">
+    <tr>
+        <th>Item</th>
+        <th>Quantidade</th>
+        <th>Data</th>
+        <th>Código da Sala</th>
+        <th>Docente</th>
+        <th>Pontuação Total</th>
+    </tr>
+
+    <% dados.forEach(d => { %>
+        <tr>
+            <td><%= d.item %></td>
+            <td><%= d.quantidade %></td>
+            <td><%= d.data %></td>
+            <td><%= d.codigo_sala %></td>
+            <td><%= d.docente %></td>
+            <td><%= d.pontuacao_total %></td>
+        </tr>
+    <% }) %>
+</table>
+<a href="/"><button>Voltar ao início</button></a>
+<%- include('../partials/footer') %>
