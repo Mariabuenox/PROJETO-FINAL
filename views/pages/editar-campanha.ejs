@@ -1,0 +1,24 @@
+<%- include("../partials/head") %>
+
+<h2>Editar Campanha</h2>
+
+<form action="/campanhas/edit/<%= campanha.id %>" method="POST">
+
+    <label>Nome:</label>
+    <input type="text" name="nome" value="<%= campanha.nome %>" required>
+
+    <label>Descrição:</label>
+    <textarea name="descricao" required><%= campanha.descricao %></textarea>
+
+    <label>Data de Início:</label>
+    <input type="date" name="data_inicio" value="<%= campanha.data_inicio %>" required>
+
+    <label>Data de Fim:</label>
+    <input type="date" name="data_fim" value="<%= campanha.data_fim %>" required>
+
+    <button type="submit">Salvar</button>
+</form>
+
+<a href="/campanhas"><button>Voltar</button></a>
+
+<%- include("../partials/footer") %>
