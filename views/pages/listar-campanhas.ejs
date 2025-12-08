@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Campanhas</title>
+</head>
+<body>
+    <h1>Campanhas Registradas</h1>
+
+    <a href="/criar-campanha">Criar nova campanha</a><br><br>
+
+    <table border="1">
+        <tr>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Período</th>
+            <th>Ações</th>
+        </tr>
+
+        <% campanhas.forEach(c => { %>
+            <tr>
+                <td><%= c.nome %></td>
+                <td><%= c.descricao %></td>
+                <td><%= c.data_inicio %> até <%= c.data_fim %></td>
+
+                <td>
+                    <a href="/campanhas/editar/<%= c.id %>">Editar</a>
+                    <a href="/campanhas/excluir/<%= c.id %>">Excluir</a>
+                    <a href="/campanhas/doar/<%= c.id %>">Doar</a>
+
+                </td>
+            </tr>
+        <% }) %>
+    </table>
+</body>
+</html>

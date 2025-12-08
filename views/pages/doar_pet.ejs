@@ -1,80 +1,59 @@
 <%- include("../partials/head") %>
 
-<%- include("../partials/menu") %>
-
 <body>
-  <!-- <div class="box-index"> -->
-  <main>
-    <form action="/doar_pet" method="POST" class="formItens">
-      <table>
-        <tr>
-          <td>
-            <select name="item_doado" required>
-              <option value="" disabled selected>Selecione o tipo da sua doação</option>
-              <option value="1">1 ponto - Ração 500g</option>
-              <option value="2">2 pontos - Ração 1kg</option>
-              <option value="8">8 pontos - Sachê lata</option>
-              <option value="6">6 pontos - Sachê</option>
-              <option value="14">14 pontos - Petiscos</option>
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <td><input type="number" name="quantidade" placeholder="Quantidade" min="1" max="99" required></td>
-        </tr>
-        <tr>
-          <td><input type="date" name="data" placeholder="Data" required></td>
-        </tr>
-        <tr>
-          <td>
-            <select name="codigo_sala" required>
-              <option value="" disabled selected>Selecione a turma</option>
-              <option>M1A</option>
-              <option>M3A</option>
-              <option>M3B</option>
-              <option>M1C</option>
-              <option>M3D</option>
-              <option>M1F</option>
-              <option>M1I</option>
-              <option>M1IA</option>
-              <option>M1H</option>
-              <option>T1A</option>
-              <option>T1B</option>
-              <option>T1C</option>
-              <option>T1D</option>
-              <option>T1IA</option>
-              <option>T1I</option>
-              <option>T3FA</option>
-              <option>T2FC</option>
-              <option>T3F</option>
-              <option>T1FB</option>
-              <option>I1F</option>
-              <option>I1FA</option>
-              <option>I1HS</option>
-              <option>I1HSB</option>
-              <option>I1E</option>
-              <option>I2HSA</option>
-              <option>N1I</option>
-              <option>N3F</option>
-            </select>
-          </td>
-        </tr>
-        <tr>
-          <td><input type="text" name="docente" placeholder="Docente" required></td>
-        </tr>
-        <tr>
-          <td>
-            <button type="submit">Confirmar</button>
-          </td>
-        </tr>
+  <div class="page-box">
+    <h1>Doar Ração</h1>
+    <main>
+      <form action="/doar_pet" method="POST" class="formItens">
+        <table>
 
-      </table>
-    </form>
-  </main>
+          <!-- Tipo de ração -->
+          <tr>
+            <td>
+              <select name="item" required>
+                <option disabled selected>Selecione o tipo da ração</option>
+                <option value="1">1 ponto - Ração comum (cachorro)</option>
+                <option value="2">2 pontos - Ração premium (cachorro)</option>
+                <option value="1C">1 ponto - Ração comum (gato)</option>
+                <option value="2C">2 pontos - Ração premium (gato)</option>
+              </select>
+            </td>
+          </tr>
 
+          <!-- Quantidade (número de doações) -->
+          <tr>
+            <td><input type="number" name="quantidade" min="1" max="99" placeholder="Quantidade" required></td>
+          </tr>
 
+          <!-- Data -->
+          <tr>
+            <td><input type="date" name="data" required></td>
+          </tr>
+
+          <!-- Turma -->
+          <tr>
+            <td>
+              <select name="codigo_sala" required>
+                <option disabled selected>Selecione a turma</option>
+                <%- include("../partials/turmas") %>
+              </select>
+            </td>
+          </tr>
+
+          <!-- Docente -->
+          <tr>
+            <td><input type="text" name="docente" placeholder="Docente responsável" required></td>
+          </tr>
+
+        </table>
+
+        <button type="submit">Confirmar</button>
+      </form>
+    </main>
+  </div>
+
+  <a href="/"><button>Voltar ao início</button></a>
 
   <%- include("../partials/footer") %>
 </body>
-
 </html>

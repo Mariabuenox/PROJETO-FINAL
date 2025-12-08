@@ -1,0 +1,36 @@
+<%- include("../partials/head") %>
+
+<div class="container-doacao">
+    <h1 class="titulo-pagina">Editar Campanha</h1>
+
+    <form action="/editar-campanha/<%= campanha.id %>" method="POST">
+
+        <div class="campo">
+            <label>Nome:</label>
+            <input type="text" name="nome" value="<%= campanha.nome %>" required>
+        </div>
+
+        <div class="campo">
+            <label>Descrição:</label>
+            <input type="text" name="descricao" value="<%= campanha.descricao %>" required>
+        </div>
+
+        <div class="campo">
+            <label>Data início:</label>
+            <input type="date" name="data_inicio" value="<%= campanha.data_inicio %>" required>
+        </div>
+
+        <div class="campo">
+            <label>Data fim:</label>
+            <input type="date" name="data_fim" value="<%= campanha.data_fim %>" required>
+        </div>
+
+        <div class="botoes-centro">
+            <button type="submit" class="btn-black">Salvar</button>
+            <a href="/campanhas" class="btn-black">Cancelar</a>
+        </div>
+
+    </form>
+</div>
+
+<%- include("../partials/footer") %>

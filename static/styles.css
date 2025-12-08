@@ -3,7 +3,17 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    /* Nova fonte moderna */
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    z-index: -1;
 }
 
 body {
@@ -28,13 +38,12 @@ body.erro {
     margin: auto;
     line-height: 1.5;
     text-align: center;
-    color: #000000;
+    color: #000;
     width: auto;
+}
 
-
-    button {
-        margin: 10px 0;
-    }
+.box-index button {
+    margin: 10px 0;
 }
 
 main {
@@ -61,20 +70,16 @@ main {
 .UsuarioLogado {
     display: inline-block;
     border: 1px solid #1a6bc4;
-    /* Borda azul */
     padding: 8px 16px;
     border-radius: 30px;
     background-color: rgba(255, 255, 255, 0.9);
-    /* Fundo branco */
     color: #1a6bc4;
-    /* Texto azul */
     font-weight: 500;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .sair-btn {
     background: linear-gradient(to right, #1a6bc4, #2980b9);
-    /* Gradiente azul */
     border: none;
     padding: 8px 16px;
     color: white;
@@ -87,12 +92,10 @@ main {
 
 .sair-btn:hover {
     background: linear-gradient(to right, #0d4d9c, #1a6bc4);
-    /* Gradiente azul mais escuro */
     transform: translateY(-2px);
     box-shadow: 0 4px 10px rgba(26, 107, 196, 0.3);
 }
 
-/* Container para centralizar botões */
 .button-container {
     display: flex;
     justify-content: center;
@@ -106,24 +109,22 @@ button {
     border: solid 1px #595959;
     padding: 5px 15px;
     border-radius: 5px;
-    background: #000000;
-    color: #ffffff;
+    background: #000;
+    color: #fff;
     font-size: 1rem;
-    align-items: center;
     font-weight: 500;
 }
 
 button:hover {
     transform: translateY(0.5px);
     box-shadow: 0 6px 20px rgba(113, 113, 113, 0.4);
-    background-color: #ffffff;
-    color: #000000;
+    background-color: #fff;
+    color: #000;
 }
 
 table {
     width: 450px;
     margin: 30px auto;
-    /* Centraliza tabela */
     border-collapse: collapse;
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
@@ -169,7 +170,6 @@ table {
 .img-container {
     display: flex;
     justify-content: center;
-    /* Centraliza imagens */
     margin: 30px 0;
 }
 
@@ -178,7 +178,7 @@ img {
     max-width: 50%;
     border-radius: 15px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: 0.3s;
     background-color: rgba(255, 255, 255, 0.5);
     padding: 5px;
 
@@ -188,12 +188,10 @@ img {
     }
 }
 
-/* Elementos adicionais para melhor organização */
 .content-wrapper {
     max-width: 1200px;
     margin: 0 auto;
     padding: 30px;
-    width: 100%;
 }
 
 .card {
@@ -206,107 +204,41 @@ img {
     text-align: center;
 }
 
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #ffffff;
-}
-
 nav {
     padding: 5px;
-    height: auto;
     width: 100%;
     align-content: center;
     align-items: center;
     flex-direction: column;
     background: linear-gradient(to bottom, #9C0720, #df5068);
     font-size: 1rem;
+}
 
-    ul {
-        list-style-type: none;
-        display: flex;
-        justify-content: flex-end;
-        gap: 10px;
-        align-items: center;
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    align-items: center;
+}
 
-        li {
-            padding: 10px;
-            margin: 0;
+nav ul li {
+    padding: 10px;
+}
 
-            a {
-                text-decoration: none;
-                color: #ffffff;
-            }
+nav ul li a {
+    text-decoration: none;
+    color: #fff;
+}
 
-            :hover {
-                text-decoration: underline;
-            }
-        }
-    }
+nav ul li a:hover {
+    text-decoration: underline;
 }
 
 .login {
-    margin: auto 0;
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
     flex-direction: row;
-
-    main {
-        display: flex;
-        width: 300px;
-        background-color: #9C0720;
-        color: #ffffff;
-        padding: 20px 10px;
-        flex-wrap: wrap;
-        margin: 20px auto 0;
-        border-radius: 7px;
-        justify-content: center;
-
-        a {
-            text-decoration: none;
-        }
-
-
-        button {
-            display: flex;
-            justify-items: center;
-            align-self: center;
-        }
-
-
-
-        form {
-            padding: 10px;
-
-            input {
-                border: none;
-                border-radius: 5px;
-                height: 1.8rem;
-                width: 100%;
-                margin: 5px auto 7px;
-            }
-
-            select {
-                width: 100%;
-                border-radius: 5px;
-                height: 1.8rem;
-                margin-top: 10px;
-                margin-left: auto;
-                margin-right: auto;
-                align-self: center;
-                margin-bottom: 10px;
-            }
-
-            button {
-                margin: 5px auto 0;
-            }
-
-
-        }
-    }
-
 }
 
 /* CARDS */
@@ -366,7 +298,7 @@ h2.card-titulo {
 footer {
     margin-top: auto;
     background: #9C0720;
-    color: #ffffff;
+    color: #fff;
     text-align: center;
     padding: 10px;
     font-size: 1rem;
@@ -375,15 +307,11 @@ footer {
 /* RESPANSIVIDADE */
 
 @media (max-width: 768px) {
+
     .docente-container {
         position: static;
         justify-content: center;
         margin: 15px 0;
-    }
-
-    .button-container {
-        flex-direction: column;
-        align-items: center;
     }
 
     button {
@@ -406,9 +334,5 @@ footer {
     .card-imagem {
         width: 100%;
         height: 200px;
-    }
-
-    .card-conteudo {
-        width: 100%;
     }
 }

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Editar Campanha</title>
+</head>
+<body>
+    <h2>Editar Campanha</h2>
+
+    <form action="/editar/<%= campanha.id %>" method="POST">
+    
+        <label>Nome</label>
+        <input type="text" name="nome" value="<%= campanha.nome %>" required>
+    
+        <label>Descrição</label>
+        <textarea name="descricao" required><%= campanha.descricao %></textarea>
+    
+        <label>Data Final</label>
+        <input type="date" name="data_final" value="<%= campanha.data_final %>" required>
+    
+        <button type="submit">Salvar Alterações</button>
+    </form>
+    
+    <a href="/campanhas">Voltar</a>
+</body>
+</html>

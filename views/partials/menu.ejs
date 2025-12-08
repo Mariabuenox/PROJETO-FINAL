@@ -2,13 +2,13 @@
   <header>
     <nav>
       <ul>
-        <li><a href="/">Home</a></li>
-        <!-- <li><a href="/campanhas">Campanhas</a></li> -->
         <li><a href="/info">Sobre nós</a></li>
-        <% if (req.session.loggedin) { %>
-        <li><a href="/doar">Doar</a></li>
+        <li><a href="/Ranking">Ranking Geral </a></li>
+       <% if (req.session.loggedin) { %>
+        <li><a href="/campanhas"> Outras Campanhas</a></li>
         <li><a href="/logout">Sair</a></li>
         <% } %>
+        <li><a href="/">Home</a></li>
       </ul>
     </nav>
   </header>

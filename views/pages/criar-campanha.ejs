@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Criar Campanha</title>
+</head>
+<body>
+    <h1>Criar Campanha</h1>
+
+    <% if (req.query.sucesso) { %>
+        <p style="color: green;">Campanha criada com sucesso!</p>
+    <% } %>
+
+    <form action="/criar-campanha" method="POST">
+        <label>Nome:</label>
+        <input type="text" name="nome" required><br>
+
+        <label>Descrição:</label>
+        <textarea name="descricao" required></textarea><br>
+
+        <label>Data início:</label>
+        <input type="date" name="data_inicio" required><br>
+
+        <label>Data fim:</label>
+        <input type="date" name="data_fim" required><br>
+
+        <button type="submit">Criar Campanha</button>
+    </form>
+
+    <a href="/campanhas">Ver campanhas</a>
+</body>
+</html>

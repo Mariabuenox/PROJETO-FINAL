@@ -1,0 +1,39 @@
+<%- include("../partials/head") %>
+
+<div class="container-doacao">
+    <h1 class="titulo-pagina">Doar para: <%= campanha.nome %></h1>
+
+    <div class="card">
+        <p class="card-descricao"><%= campanha.descricao %></p>
+        <p><strong>Período:</strong> <%= campanha.data_inicio %> → <%= campanha.data_fim %></p>
+
+        <form action="/campanha/doar/<%= campanha.id %>" method="POST">
+            <div class="campo">
+                <label>Item (valor numérico):</label>
+                <input type="number" name="item" required>
+            </div>
+
+            <div class="campo">
+                <label>Quantidade:</label>
+                <input type="number" name="quantidade" required>
+            </div>
+
+            <div class="campo">
+                <label>Código da sala:</label>
+                <input type="text" name="codigo_sala">
+            </div>
+
+            <div class="campo">
+                <label>Docente:</label>
+                <input type="text" name="docente" value="<%= req.session.UsuarioLogado || '' %>">
+            </div>
+
+            <div class="botoes-centro">
+                <button class="btn-black" type="submit">Doar</button>
+                <a href="/campanhas" class="btn-black">Voltar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<%- include("../partials/footer") %>
