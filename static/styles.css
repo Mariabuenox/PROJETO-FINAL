@@ -210,7 +210,7 @@ nav {
     align-content: center;
     align-items: center;
     flex-direction: column;
-    background: linear-gradient(to bottom, #9C0720, #df5068);
+    background: #9C0720;
     font-size: 1rem;
 }
 
@@ -244,53 +244,109 @@ nav ul li a:hover {
 /* CARDS */
 
 #cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    max-width: 1200px;
-    margin: 0 20px;
-    text-decoration: none;
-
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
 }
 
 .info {
-    display: flex;
-    background: #FF9398;
+    background: linear-gradient(135deg, #fe787f 0%, #911126 100%);
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    height: 100%;
-    margin: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 300px;
+    padding: 20px;
+    transition: transform 0.3s ease;
+}
+
+.info:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.card-conteudo a {
     text-decoration: none;
+    color: inherit;
 }
 
-.card-imagem {
-    width: 40%;
-    /* object-fit: cover; */
-    max-width: 170px;
-    margin: 10px;
-}
-
-.card-conteudo {
-    padding: 1.5rem;
-    width: 60%;
-}
-
-h2.card-titulo {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-    /* color: #000000;
-    text-decoration: none; */
-
-    a {
-        text-decoration: none;
-        color: #000000;
-    }
+.card-titulo {
+    color: #333;
+    margin-bottom: 10px;
 }
 
 .card-descricao {
     color: #666;
     line-height: 1.5;
+}
+
+/* h2.card-titulo {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+
+    a {
+        text-decoration: none;
+        color: #ffffff;
+    }
+} */
+
+
+/* Estilo para a seção de campanhas */
+.titulo-campanhas {
+    width: 100%;
+    text-align: center;
+    margin: 40px 0 20px 0;
+}
+
+.titulo-campanhas h2 {
+    color: #333;
+    border-bottom: 2px solid #4CAF50;
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+#campanhas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.campanha-card {
+    background: linear-gradient(135deg, #fe787f 0%, #9C0720 100%);
+    color: white;
+    border-radius: 10px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.campanha-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0,0,0,0.2);
+}
+
+.campanha-card .card-titulo {
+    color: white;
+    margin-bottom: 10px;
+}
+
+.campanha-card .card-descricao {
+    color: #f0f0f0;
+    margin-bottom: 15px;
+}
+
+.campanha-datas {
+    font-size: 0.9em;
+    background: rgba(255,255,255,0.2);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.campanha-datas p {
+    margin: 5px 0;
 }
 
 /* FOOTER */
@@ -303,6 +359,40 @@ footer {
     padding: 10px;
     font-size: 1rem;
 }
+
+
+
+.login main {
+    display: flex;
+    width: 300px;
+    background-color: #9C0720;
+    color: #fff;
+    padding: 20px 10px;
+    margin: 20px auto 0;
+    border-radius: 7px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.login main form {
+    padding: 10px;
+    width: 100%;
+}
+
+.login main form input,
+.login main form select {
+    border: none;
+    border-radius: 5px;
+    height: 1.8rem;
+    width: 100%;
+    margin: 5px auto 10px;
+}
+
+.login main form button {
+    margin: 5px auto 0;
+}
+
+
 
 /* RESPANSIVIDADE */
 

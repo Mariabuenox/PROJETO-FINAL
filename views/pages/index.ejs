@@ -24,42 +24,83 @@
 
   <% } else { %>
 
-  <section id="#cards">
-    <div class="info">
-      <!-- <img src="./static/scarroz.png" alt="Imagem 2" class="card-imagem"> -->
+  <section id="campanhas">
+    <div class="campanha-card">
       <div class="card-conteudo">
-        <h2 class="card-titulo"><a href="/doar_alimento">Alimentos</a></h2>
-        <p class="card-descricao">Ajude a combater a fome doando alimentos não perecíveis. Sua contribuição faz a diferença na vida de famílias que precisam. Doe com carinho e transforme vidas!.</p>
-      </div>
-    </div>
-
-    <div class="info">
-      <!-- <img src="./imagens/cinza.png" alt="Imagem 2" class="card-imagem"> -->
-      <div class="card-conteudo">
-        <h2 class="card-titulo"><a href="/doar_pet">Ração</a></h2>
-        <p class="card-descricao">Contribua com a alimentação dos animais que dependem de nós. Doe ração e ajude a garantir cuidado e sustento para cães, gatos e outros pets em situação de vulnerabilidade.</p>
-      </div>
-    </div>
-
-    
-      <div class="info">
-        <!-- <img src="./static/agasalho.png" alt="Imagem 2" class="card-imagem"> -->
-        <div class="card-conteudo">
-          <h2 class="card-titulo"><a href="/doar_agasalho">Agasalho</a></h2>
-          <p class="card-descricao">Doe agasalhos e aqueça quem mais precisa neste inverno. Sua solidariedade ajuda a proteger pessoas em situação de vulnerabilidade contra o frio.</p>
+        <a href="/doar_alimento">
+          <h2 class="card-titulo">Alimentos</h2>
+        </a>
+        <p class="card-descricao">Ajude a combater a fome doando alimentos não perecíveis.</p>
+        <div class="campanha-datas">
+          <p><strong>🏁 Início:</strong> 2025-09-10 </p>
+          <p><strong>🏁 Término:</strong> 2025-12-31</p>
         </div>
       </div>
+    </div>
 
-
-    <div class="info">
-      <!-- <img src="./imagens/cinza.png" alt="Imagem 2" class="card-imagem"> -->
+    <div class="campanha-card">
       <div class="card-conteudo">
-        <h2 class="card-titulo"><a href="/doar_brinquedo">Brinquedos</a></h2>
-        <p class="card-descricao">Leve alegria e esperança para crianças que precisam. Doe brinquedos e ajude a transformar momentos simples em grandes sorrisos.</p>
+        <a href="/doar_pet">
+          <h2 class="card-titulo">Ração</h2>
+        </a>
+        <p class="card-descricao">Contribua com a alimentação dos animais que dependem de nós.</p>
+        <div class="campanha-datas">
+          <p><strong>🏁 Início:</strong> 2025-09-10 </p>
+          <p><strong>🏁 Término:</strong> 2025-12-31</p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="campanha-card">
+      <div class="card-conteudo">
+        <a href="/doar_agasalho">
+          <h2 class="card-titulo">Agasalho</h2>
+        </a>
+        <p class="card-descricao">Doe agasalhos e aqueça quem mais precisa neste inverno.</p>
+        <div class="campanha-datas">
+          <p><strong>🏁 Início:</strong> 2025-09-10 </p>
+          <p><strong>🏁 Término:</strong> 2025-12-31</p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="campanha-card">
+      <div class="card-conteudo">
+        <a href="/doar_brinquedo">
+          <h2 class="card-titulo">Brinquedos</h2>
+        </a>
+        <p class="card-descricao">Leve alegria e esperança para crianças que precisam.</p>
+        <div class="campanha-datas">
+          <p><strong>🏁 Início:</strong> 2025-09-10 </p>
+          <p><strong>🏁 Término:</strong> 2025-12-31</p>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- Seção de Campanhas -->
+  <% if (campanhas && campanhas.length > 0) { %>
+  <div class="titulo-campanhas">
+    <!-- <h2>Campanhas Ativas</h2> -->
+  </div>
+
+  <section id="cards">
+    <% campanhas.forEach(campanha => { %>
+    <div class="campanha-card">
+      <div class="card-conteudo">
+        <h2 class="card-titulo"><%= campanha.nome %></h2>
+        <p class="card-descricao"><%= campanha.descricao %></p>
+        <div class="campanha-datas">
+          <p><strong>🏁 Início:</strong> <%= campanha.data_inicio %></p>
+          <p><strong>🏁 Término:</strong> <%= campanha.data_fim %></p>
+        </div>
+      </div>
+    </div>
+    <% }); %>
+  </section>
+  <% } %>
 
   <% } %>
 

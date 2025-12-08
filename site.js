@@ -8,7 +8,6 @@ const port = 8000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// Conexão com o BD
 
 const db = new sqlite3.Database("campanhas.db");
 db.serialize(() => {
@@ -52,16 +51,25 @@ function autenticado(req, res, next) {
     }
   }
 
-// Rota inicial
+// Rota inicial - MODIFICADA PARA INCLUIR CAMPANHAS
 app.get("/", (req, res) => {
     const nome = req.session?.UsuarioLogado || null;
 
-    res.render("pages/index", { 
-        nome, 
-        req 
-    });
+    // Buscar campanhas do banco de dados
+    db.all("SELECT * FROM campanhas", [], (err, campanhas) => {
+        if (err) {
+            console.error("Erro ao buscar campanhas:", err);
+            campanhas = [];
+        }
 
-    console.log("Nome da Sessão:", req.session?.UsuarioLogado);
+        res.render("pages/index", { 
+            nome, 
+            req,
+            campanhas: campanhas || []
+        });
+
+        console.log("Nome da Sessão:", req.session?.UsuarioLogado);
+    });
 });
 
 
@@ -166,7 +174,7 @@ app.get("/ranking", (req, res) => {
     });
 });
 
-// Demais rotas
+
 app.get("/confirmar", (req, res) => {
     res.render("pages/confirmar", { titulo: "CONFIRMAÇÃO", req });
 });
@@ -484,4 +492,3 @@ app.use((req, res) => {
 app.listen(port, () => {
     console.log(`Servidor rodando em http://localhost:${port}`);
 });
-
